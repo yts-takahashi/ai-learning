@@ -1,4 +1,5 @@
 import MermaidChart from '@/components/features/MermaidChart';
+import CodeBlock from '@/components/ui/CodeBlock';
 import { ComponentPropsWithoutRef } from 'react';
 
 function Pre({ children, ...props }: ComponentPropsWithoutRef<'pre'>) {
@@ -12,7 +13,7 @@ function Pre({ children, ...props }: ComponentPropsWithoutRef<'pre'>) {
     return <MermaidChart chart={child.props.children} />;
   }
 
-  return <pre {...props}>{children}</pre>;
+  return <CodeBlock {...props}>{children}</CodeBlock>;
 }
 
 export const mdxComponents = {
