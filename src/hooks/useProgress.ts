@@ -1,19 +1,50 @@
 'use client';
 
 import { useState, useEffect, useCallback } from 'react';
-import { getProgress, markComplete, markIncomplete } from '@/lib/progress';
+import {
+  getProgress,
+  markComplete as localMarkComplete,
+  markIncomplete as localMarkIncomplete,
+} from '@/lib/progress';
+import {
+  fetchProgress,
+  markComplete as apiMarkComplete,
+  markIncomplete as apiMarkIncomplete,
+} from '@/lib/api';
+import { getAuth } from '@/lib/auth';
 
 export function useProgress() {
   const [completedSlugs, setCompletedSlugs] = useState<Set<string>>(new Set());
   const [isLoaded, setIsLoaded] = useState(false);
 
   useEffect(() => {
-    setCompletedSlugs(getProgress());
-    setIsLoaded(true);
+    const auth = getAuth();
+    if (auth) {
+      fetchProgress(auth.token)
+        .then((res) => {
+          setCompletedSlugs(new Set(res.completedSlugs));
+        })
+        .catch(() => {
+          setCompletedSlugs(getProgress());
+        })
+        .finally(() => {
+          setIsLoaded(true);
+        });
+    } else {
+      setCompletedSlugs(getProgress());
+      setIsLoaded(true);
+    }
   }, []);
 
   const complete = useCallback((slug: string) => {
-    markComplete(slug);
+    const auth = getAuth();
+    if (auth) {
+      apiMarkComplete(slug, auth.token).catch(() => {
+        // Ignore API errors silently
+      });
+    } else {
+      localMarkComplete(slug);
+    }
     setCompletedSlugs((prev) => {
       const next = new Set(prev);
       next.add(slug);
@@ -22,7 +53,14 @@ export function useProgress() {
   }, []);
 
   const incomplete = useCallback((slug: string) => {
-    markIncomplete(slug);
+    const auth = getAuth();
+    if (auth) {
+      apiMarkIncomplete(slug, auth.token).catch(() => {
+        // Ignore API errors silently
+      });
+    } else {
+      localMarkIncomplete(slug);
+    }
     setCompletedSlugs((prev) => {
       const next = new Set(prev);
       next.delete(slug);

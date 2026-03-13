@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import { HeaderAuth } from '@/components/layout/HeaderAuth';
 
 export default function Header() {
   return (
@@ -31,6 +32,7 @@ export default function Header() {
             >
               学習を始める
             </Link>
+            <HeaderAuth />
           </nav>
         </div>
       </div>

@@ -33,3 +33,18 @@ export interface Progress {
   completedSlugs: string[];
   lastUpdated: string;
 }
+
+export interface AuthUser {
+  id: string;
+  email: string;
+}
+
+export interface AuthResponse {
+  token: string;
+  user: AuthUser;
+}
+
+export interface ProgressResponse {
+  completedSlugs: string[];
+  lastUpdated: string;
+}
