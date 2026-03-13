@@ -118,6 +118,19 @@ PRD の全実装タスクはすでに完了しています。
 
 ---
 
+## STEP 7: CHRONICLE（開発記録）
+
+すべてのステップ完了後、必ず `chronicle` スキル（`.claude/skills/chronicle/SKILL.md`）を実行する。
+このステップは省略しない。
+
+```
+.claude/skills/chronicle/SKILL.md を読み、開発記録を作成してください。
+直前の ship セッションで実装・改善した内容を docs/journal/ に記録してください。
+git log --oneline -20 で今回のセッションのコミットを確認して記録してください。
+```
+
+---
+
 ## 判断基準（迷ったとき）
 
 | 状況 | 判断 |

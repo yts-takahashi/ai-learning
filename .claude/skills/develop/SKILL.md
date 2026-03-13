@@ -181,6 +181,19 @@ cd backend && cargo check && cargo clippy
 
 ---
 
+## STEP 7: CHRONICLE（開発記録）
+
+コミット完了後、必ず `chronicle` スキル（`.claude/skills/chronicle/SKILL.md`）を実行する。
+このステップは省略しない。
+
+```
+.claude/skills/chronicle/SKILL.md を読み、開発記録を作成してください。
+今回の develop セッションで実装した内容を docs/journal/ に記録してください。
+実装した機能・設計の意図・技術的なポイントを詳しく記録してください。
+```
+
+---
+
 ## 判断基準（迷ったとき）
 
 | 状況 | 判断 |
