@@ -105,6 +105,19 @@ feat(<scope>): <実装内容>
 
 ---
 
+## STEP 6: IMPROVE（改善アイデア生成・実装）
+
+VISUAL REVIEW の後、`improve` スキル（`.claude/skills/improve/SKILL.md`）を実行する。
+PRD の全タスクが完了している場合は必ずこのステップを実行する。
+
+```
+.claude/skills/improve/SKILL.md を読み、プロダクト改善を実行してください。
+PRD の全実装タスクはすでに完了しています。
+改善アイデアを生成し、優先度の高い上位3件を実装してください。
+```
+
+---
+
 ## 判断基準（迷ったとき）
 
 | 状況 | 判断 |

@@ -2,7 +2,20 @@
   "permissions": {
     "allow": [
       "Bash(npm install:*)",
-      "Bash(sleep 3 && open http://localhost:3000)"
+      "Bash(sleep 3 && open http://localhost:3000)",
+      "Bash(source $HOME/.cargo/env && cargo init --name ai-learning-backend /Users/shotakahashi/git/ai-learning/backend)",
+      "Read(//usr/local/bin/**)",
+      "Read(//Users/shotakahashi/.cargo/bin/**)",
+      "Read(//opt/homebrew/bin/**)",
+      "Read(//opt/**)",
+      "Bash(. \"$HOME/.cargo/env\" && cd /Users/shotakahashi/git/ai-learning/backend && cargo check 2>&1)",
+      "Bash(cd /Users/shotakahashi/git/ai-learning/backend && cargo check 2>&1)",
+      "Bash(export PATH=\"$HOME/.cargo/bin:$PATH\" && cd /Users/shotakahashi/git/ai-learning/backend && cargo check 2>&1)",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\" http://localhost:8080/health 2>/dev/null || echo \"down\")",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\" http://localhost:3000 2>/dev/null || echo \"down\")",
+      "Bash(sleep 3 && curl -s http://localhost:8080/health && echo \"\" || cat /tmp/backend.log | tail -10)",
+      "Bash(export PATH=\"$HOME/.cargo/bin:$PATH\" && cargo build 2>&1 | tail -5)",
+      "Bash(export PATH=\"$HOME/.cargo/bin:$PATH\" && cargo build 2>&1)"
     ]
   },
   "enabledMcpjsonServers": [
