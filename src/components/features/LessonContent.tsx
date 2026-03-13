@@ -1,14 +1,13 @@
 'use client';
 
 import { useState } from 'react';
-import { MDXRemote, MDXRemoteSerializeResult } from 'next-mdx-remote';
 import { Lesson, QuizQuestion } from '@/lib/types';
 import Quiz from '@/components/features/Quiz';
 
 interface LessonContentProps {
   lesson: Lesson;
-  articleSource: MDXRemoteSerializeResult;
-  handsOnSource: MDXRemoteSerializeResult | null;
+  articleContent: React.ReactNode;
+  handsOnContent: React.ReactNode | null;
   quizQuestions: QuizQuestion[];
 }
 
@@ -16,13 +15,13 @@ type Tab = 'article' | 'handson' | 'quiz';
 
 export default function LessonContent({
   lesson,
-  articleSource,
-  handsOnSource,
+  articleContent,
+  handsOnContent,
   quizQuestions,
 }: LessonContentProps) {
   const [activeTab, setActiveTab] = useState<Tab>('article');
 
-  const hasHandsOn = lesson.hasHandsOn && handsOnSource !== null;
+  const hasHandsOn = lesson.hasHandsOn && handsOnContent !== null;
   const hasQuiz = lesson.hasQuiz && quizQuestions.length > 0;
 
   const tabs: { id: Tab; label: string; available: boolean }[] = [
@@ -56,11 +55,11 @@ export default function LessonContent({
       {/* Content */}
       {activeTab === 'article' && (
         <div className="prose prose-gray max-w-none">
-          <MDXRemote {...articleSource} />
+          {articleContent}
         </div>
       )}
 
-      {activeTab === 'handson' && handsOnSource && (
+      {activeTab === 'handson' && handsOnContent && (
         <div className="bg-green-50 border border-green-200 rounded-xl p-6">
           <div className="flex items-center gap-2 mb-4 text-green-700">
             <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -74,7 +73,7 @@ export default function LessonContent({
             <span className="font-semibold">ハンズオン</span>
           </div>
           <div className="prose prose-green max-w-none">
-            <MDXRemote {...handsOnSource} />
+            {handsOnContent}
           </div>
         </div>
       )}

@@ -1,6 +1,6 @@
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
-import { serialize } from 'next-mdx-remote/serialize';
+import { MDXRemote } from 'next-mdx-remote/rsc';
 import { getLessonBySlug, getAdjacentLessons, getAllLessons } from '@/lib/lessons';
 import { parseLessonContent } from '@/lib/parseLesson';
 import { parseQuizMarkdown } from '@/lib/parseQuiz';
@@ -8,6 +8,7 @@ import { CHAPTERS, DIFFICULTY_LABELS } from '@/lib/constants';
 import Badge from '@/components/ui/Badge';
 import LessonContent from '@/components/features/LessonContent';
 import LessonComplete from '@/components/features/LessonComplete';
+import { mdxComponents } from '@/components/mdx/mdxComponents';
 
 interface LessonPageProps {
   params: Promise<{ slug: string }>;
@@ -40,8 +41,9 @@ export default async function LessonPage({ params }: LessonPageProps) {
   const { prev, next } = getAdjacentLessons(slug);
   const { article, handson, quiz } = parseLessonContent(lesson.content);
 
-  const articleSource = await serialize(article);
-  const handsOnSource = handson ? await serialize(handson) : null;
+  const mdOptions = { mdxOptions: { format: 'md' as const } };
+  const articleContent = <MDXRemote source={article} options={mdOptions} components={mdxComponents} />;
+  const handsOnContent = handson ? <MDXRemote source={handson} options={mdOptions} components={mdxComponents} /> : null;
   const quizQuestions = quiz ? parseQuizMarkdown(quiz) : [];
 
   const chapterInfo = CHAPTERS.find((c) => c.number === lesson.chapter);
@@ -122,8 +124,8 @@ export default async function LessonPage({ params }: LessonPageProps) {
       <div className="bg-white rounded-xl border border-gray-200 p-6 sm:p-8">
         <LessonContent
           lesson={lesson}
-          articleSource={articleSource}
-          handsOnSource={handsOnSource}
+          articleContent={articleContent}
+          handsOnContent={handsOnContent}
           quizQuestions={quizQuestions}
         />
 

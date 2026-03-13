@@ -95,6 +95,16 @@ feat(<scope>): <実装内容>
 
 ---
 
+## STEP 5: VISUAL REVIEW（デザインレビュー）
+
+完了報告の後、`visual-review` スキル（`.claude/skills/visual-review/SKILL.md`）を実行する。
+
+```
+.claude/skills/visual-review/SKILL.md を読み、デザインレビューを実行してください。
+```
+
+---
+
 ## 判断基準（迷ったとき）
 
 | 状況 | 判断 |
