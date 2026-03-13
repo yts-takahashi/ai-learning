@@ -2,7 +2,7 @@
 
 import { useState, FormEvent } from 'react';
 import Link from 'next/link';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { useAuth } from '@/hooks/useAuth';
 
 interface AuthFormProps {
@@ -11,6 +11,7 @@ interface AuthFormProps {
 
 export function AuthForm({ mode }: AuthFormProps) {
   const router = useRouter();
+  const searchParams = useSearchParams();
   const { login, register } = useAuth();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -29,7 +30,8 @@ export function AuthForm({ mode }: AuthFormProps) {
       } else {
         await register(email, password);
       }
-      router.push('/dashboard');
+      const from = searchParams.get('from');
+      router.push(from ?? '/dashboard');
     } catch (err) {
       setError(err instanceof Error ? err.message : '予期しないエラーが発生しました');
     } finally {
