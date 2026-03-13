@@ -1,0 +1,37 @@
+{
+  "permissions": {
+    "allow": [
+      "Edit",
+      "Write",
+      "Read",
+      "Bash(npm run lint*)",
+      "Bash(npx tsc*)",
+      "Bash(npm run dev*)",
+      "Bash(npm run build*)",
+      "Bash(git status)",
+      "Bash(git diff*)",
+      "Bash(git add*)",
+      "Bash(git commit*)",
+      "Bash(git log*)",
+      "Bash(mkdir -p src/*)",
+      "Bash(mkdir -p docs/*)"
+    ]
+  },
+  "hooks": {
+    "PostToolUse": [
+      {
+        "matcher": "Edit|Write|MultiEdit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "cd /Users/shotakahashi/git/ai-learning && npm run lint --silent 2>&1 | head -30"
+          },
+          {
+            "type": "command",
+            "command": "cd /Users/shotakahashi/git/ai-learning && npx tsc --noEmit 2>&1 | head -30"
+          }
+        ]
+      }
+    ]
+  }
+}
