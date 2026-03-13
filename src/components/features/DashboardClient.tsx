@@ -14,9 +14,10 @@ interface ChapterProgressInfo {
 interface DashboardClientProps {
   chapterProgressInfos: ChapterProgressInfo[];
   allSlugs: string[];
+  lessonTitleMap: Record<string, string>;
 }
 
-export default function DashboardClient({ chapterProgressInfos, allSlugs }: DashboardClientProps) {
+export default function DashboardClient({ chapterProgressInfos, allSlugs, lessonTitleMap }: DashboardClientProps) {
   const { completedSlugs, isLoaded } = useProgress();
 
   if (!isLoaded) {
@@ -89,7 +90,7 @@ export default function DashboardClient({ chapterProgressInfos, allSlugs }: Dash
                   </svg>
                 </div>
                 <span className="text-sm text-gray-700 group-hover:text-blue-600 transition-colors">
-                  {slug}
+                  {lessonTitleMap[slug] ?? slug}
                 </span>
               </Link>
             ))}
