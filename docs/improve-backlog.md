@@ -6,8 +6,12 @@
 
 
 
+
 ## 実装済み（このセッション）
 
+- [x] **canonical URLの設定（レッスンページ）** | SEO | generateMetadataにalternates.canonicalを追加
+- [x] **WeeklyGoalに今週学習したレッスン名を表示** | 学習体験 | 今週セッションがあるレッスン名をWeeklyGoalカードに一覧表示
+- [x] **本日の学習時間をダッシュボードに表示** | 学習体験 | LearningTimeStatsに今日の学習時間セクションを追加
 - [x] **「c」キーでレッスン完了マーク** | 学習体験 | LessonKeyboardNavにuseProgress追加、ショートカット一覧にも追加
 - [x] **全クイズ高正答率達成の称賛メッセージ** | 学習体験 | WeakLessonsに全レッスン70%以上達成時の称賛カードを追加
 - [x] **目次のアクティブ見出しハイライト** | UX/UI | TableOfContentsをClient Componentに変更しIntersectionObserverを追加
