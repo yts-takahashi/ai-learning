@@ -4,10 +4,10 @@
 
 ## 未実装
 
-- [ ] **コンテンツ検索機能（Fuse.js）** | UX/UI | Impact:Medium | Effort:Medium | Headerに検索ボックスを追加、Fuse.jsでレッスンタイトル・説明の全文検索を実装
 
 ## 実装済み（このセッション）
 
+- [x] **コンテンツ検索機能（Fuse.js）** | UX/UI | Headerに⌘K検索ボタン追加、Fuse.jsでタイトル・チャプター名を横断検索するモーダルUIを実装
 - [x] **構造化データ（Schema.org）実装** | SEO | WebSite・LearningResource・BreadcrumbList のLD+JSONを各ページに追加
 - [x] **レッスン内関連リンク（RelatedLesson）コンポーネント** | 学習体験 | MDXで`<RelatedLesson slug="..."/>`を使えるコンポーネントを追加
 - [x] **サイトマップ（sitemap.xml）自動生成** | SEO | App Router組み込みsitemap.tsで全レッスンURLを含むサイトマップ生成
