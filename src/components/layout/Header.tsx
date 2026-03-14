@@ -3,8 +3,14 @@
 import Link from 'next/link';
 import { useState } from 'react';
 import { HeaderAuth } from '@/components/layout/HeaderAuth';
+import SearchModal from '@/components/ui/SearchModal';
+import type { SearchItem } from '@/lib/search';
 
-export default function Header() {
+interface HeaderProps {
+  searchItems?: SearchItem[];
+}
+
+export default function Header({ searchItems = [] }: HeaderProps) {
   const [menuOpen, setMenuOpen] = useState(false);
 
   return (
@@ -19,7 +25,8 @@ export default function Header() {
           </Link>
 
           {/* デスクトップナビ */}
-          <nav className="hidden sm:flex items-center gap-6">
+          <nav className="hidden sm:flex items-center gap-4">
+            <SearchModal items={searchItems} />
             <Link
               href="/lessons"
               className="text-gray-600 hover:text-gray-900 text-sm font-medium transition-colors"

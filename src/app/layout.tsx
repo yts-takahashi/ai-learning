@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 import './globals.css';
-import Header from '@/components/layout/Header';
+import HeaderWrapper from '@/components/layout/HeaderWrapper';
 import { websiteSchema } from '@/lib/schema';
 
 export const metadata: Metadata = {
@@ -43,7 +43,7 @@ export default function RootLayout({
         >
           メインコンテンツへスキップ
         </a>
-        <Header />
+        <HeaderWrapper />
         <main id="main-content">{children}</main>
         <footer className="border-t border-gray-200 bg-white mt-16">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
