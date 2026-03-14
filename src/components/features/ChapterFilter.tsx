@@ -17,9 +17,10 @@ export default function ChapterFilter() {
   }
 
   return (
-    <div className="flex flex-wrap gap-2 mb-8">
+    <div className="flex flex-wrap gap-2 mb-8" role="group" aria-label="チャプターフィルター">
       <button
         onClick={() => handleChange(null)}
+        aria-pressed={!currentChapter}
         className={`px-4 py-2 rounded-full text-sm font-medium transition-colors ${
           !currentChapter
             ? 'bg-blue-600 text-white'
@@ -32,6 +33,7 @@ export default function ChapterFilter() {
         <button
           key={ch.number}
           onClick={() => handleChange(String(ch.number))}
+          aria-pressed={currentChapter === String(ch.number)}
           className={`px-4 py-2 rounded-full text-sm font-medium transition-colors ${
             currentChapter === String(ch.number)
               ? 'bg-blue-600 text-white'
