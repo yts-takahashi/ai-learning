@@ -5,8 +5,12 @@
 ## 未実装
 
 
+
 ## 実装済み（このセッション）
 
+- [x] **「c」キーでレッスン完了マーク** | 学習体験 | LessonKeyboardNavにuseProgress追加、ショートカット一覧にも追加
+- [x] **全クイズ高正答率達成の称賛メッセージ** | 学習体験 | WeakLessonsに全レッスン70%以上達成時の称賛カードを追加
+- [x] **目次のアクティブ見出しハイライト** | UX/UI | TableOfContentsをClient Componentに変更しIntersectionObserverを追加
 - [x] **クイズ履歴に最終挑戦日時を追加** | 学習体験 | QuizHistoryDetailに相対日付を表示
 - [x] **最近完了レッスンを5件→10件に拡大** | UX/UI | recentCompletedのslice(-10)に変更
 - [x] **ヘッダーのアクティブリンクハイライト** | UX/UI | usePathnameでカレントページのナビリンクをハイライト
