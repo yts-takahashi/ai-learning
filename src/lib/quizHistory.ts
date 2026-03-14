@@ -33,6 +33,7 @@ export interface LessonQuizStat {
   total: number;
   bestRate: number;
   latestRate: number;
+  latestTimestamp: number;
 }
 
 export function getStatsByLesson(history: QuizHistory): LessonQuizStat[] {
@@ -46,6 +47,7 @@ export function getStatsByLesson(history: QuizHistory): LessonQuizStat[] {
       total: best.total,
       bestRate: Math.round((best.score / best.total) * 100),
       latestRate: Math.round((latest.score / latest.total) * 100),
+      latestTimestamp: latest.timestamp,
     };
   }).sort((a, b) => b.latestRate - a.latestRate);
 }

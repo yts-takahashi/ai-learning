@@ -8,6 +8,17 @@ interface QuizHistoryDetailProps {
   lessonTitleMap: Record<string, string>;
 }
 
+function formatRelativeDate(ts: number): string {
+  const now = Date.now();
+  const diff = now - ts;
+  const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+  if (days === 0) return '今日';
+  if (days === 1) return '昨日';
+  if (days < 7) return `${days}日前`;
+  const d = new Date(ts);
+  return `${d.getMonth() + 1}/${d.getDate()}`;
+}
+
 export default function QuizHistoryDetail({ lessonTitleMap }: QuizHistoryDetailProps) {
   const [stats, setStats] = useState<LessonQuizStat[]>([]);
 
@@ -42,7 +53,7 @@ export default function QuizHistoryDetail({ lessonTitleMap }: QuizHistoryDetailP
                 {lessonTitleMap[s.slug] ?? s.slug}
               </p>
               <p className="text-xs text-gray-400">
-                最高 {s.bestScore}/{s.total}問正解 · {s.attempts}回挑戦
+                最高 {s.bestScore}/{s.total}問正解 · {s.attempts}回挑戦 · {formatRelativeDate(s.latestTimestamp)}
               </p>
             </div>
             <div className="w-16 flex-shrink-0">
