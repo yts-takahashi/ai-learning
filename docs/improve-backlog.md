@@ -7,9 +7,12 @@
 
 
 
-
 ## 実装済み（このセッション）
 
+- [x] **LearningInsightsのprogressbar aria属性追加とスケルトン** | アクセシビリティ+UX | role="progressbar"とanimate-pulseスケルトンを追加
+- [x] **全レッスン完走時のダッシュボードバナー** | 学習体験 | 完走お祝いバナーをDashboardClientに表示
+- [x] **HomeProgressBannerの全完了時お祝いバナー** | 学習体験 | 全完走時に緑のお祝いバナーを表示
+- [x] **ChapterProgressの「残りn/m」表記** | UX/UI | 残りレッスン数を分数形式で表示
 - [x] **StreakBadgeのスケルトンローディング** | UX/UI | ロード中スケルトンを表示、文言をポジティブ表現に変更
 - [x] **Quizのnextが無い時に「レッスン一覧へ」ボタン表示** | 学習体験 | nextSlugがない場合の代替ナビゲーションを追加
 - [x] **LessonCardのquiz正答率を色でフィードバック** | UX/UI | 正答率0-39%赤・40-69%黄・70-99%緑・100%金で色分け
