@@ -102,7 +102,7 @@ export default async function LessonsPage({ searchParams }: LessonsPageProps) {
               ) : (
                 <div className="space-y-2">
                   {chapter.lessons.map((lesson) => (
-                    <LessonCard key={lesson.slug} lesson={lesson} />
+                    <LessonCard key={lesson.slug} lesson={lesson} allSlugsInOrder={allLessons.map((l) => l.slug)} />
                   ))}
                 </div>
               )}

@@ -7,22 +7,32 @@ import { useProgress } from '@/hooks/useProgress';
 
 interface LessonCardProps {
   lesson: Lesson;
+  allSlugsInOrder?: string[];
 }
 
-export default function LessonCard({ lesson }: LessonCardProps) {
-  const { isCompleted } = useProgress();
+export default function LessonCard({ lesson, allSlugsInOrder }: LessonCardProps) {
+  const { completedSlugs, isCompleted } = useProgress();
   const completed = isCompleted(lesson.slug);
+
+  const isNext =
+    !completed &&
+    !!allSlugsInOrder &&
+    allSlugsInOrder.findIndex((s) => !completedSlugs.has(s)) === allSlugsInOrder.indexOf(lesson.slug);
 
   return (
     <Link
       href={`/lessons/${lesson.slug}`}
-      className="flex items-center gap-4 p-4 rounded-lg border border-gray-200 bg-white hover:border-blue-300 hover:shadow-sm transition-all group"
+      className={`flex items-center gap-4 p-4 rounded-lg border bg-white hover:border-blue-300 hover:shadow-sm transition-all group ${
+        isNext ? 'border-blue-400 ring-1 ring-blue-200' : 'border-gray-200'
+      }`}
     >
       <div
         className={`w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0 border-2 transition-colors ${
           completed
             ? 'bg-green-500 border-green-500 text-white'
-            : 'border-gray-300 group-hover:border-blue-400'
+            : isNext
+              ? 'border-blue-400 text-blue-500'
+              : 'border-gray-300 group-hover:border-blue-400'
         }`}
       >
         {completed ? (
@@ -30,7 +40,7 @@ export default function LessonCard({ lesson }: LessonCardProps) {
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
           </svg>
         ) : (
-          <span className="text-xs text-gray-400 group-hover:text-blue-400">
+          <span className={`text-xs ${isNext ? 'text-blue-500' : 'text-gray-400 group-hover:text-blue-400'}`}>
             {lesson.lessonNumber}
           </span>
         )}
@@ -45,6 +55,11 @@ export default function LessonCard({ lesson }: LessonCardProps) {
           >
             {lesson.title}
           </h3>
+          {isNext && (
+            <span className="flex-shrink-0 text-xs font-semibold text-blue-600 bg-blue-50 px-2 py-0.5 rounded-full border border-blue-200">
+              続きから
+            </span>
+          )}
         </div>
         <div className="flex items-center gap-3 text-xs text-gray-400">
           <span>{lesson.duration} 分</span>
