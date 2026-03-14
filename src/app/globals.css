@@ -1,2 +1,58 @@
 @import "tailwindcss";
 @plugin "@tailwindcss/typography";
+
+@media print {
+  /* ヘッダー・フッター・ナビゲーションを非表示 */
+  header,
+  footer,
+  nav,
+  [data-print-hide],
+  .no-print {
+    display: none !important;
+  }
+
+  /* 本文を最大幅で表示 */
+  body {
+    background: white !important;
+    color: black !important;
+  }
+
+  main {
+    max-width: 100% !important;
+    padding: 0 !important;
+  }
+
+  /* リンクにURLを表示 */
+  a[href^="http"]::after {
+    content: " (" attr(href) ")";
+    font-size: 0.75em;
+    color: #555;
+  }
+
+  a[href^="/"]::after {
+    content: none;
+  }
+
+  /* ページ区切り */
+  h1, h2 {
+    page-break-after: avoid;
+  }
+
+  pre, blockquote {
+    page-break-inside: avoid;
+  }
+
+  /* コードブロックのスタイル調整 */
+  pre {
+    white-space: pre-wrap;
+    word-break: break-word;
+    border: 1px solid #ddd;
+    padding: 0.5em;
+  }
+
+  /* タブUI・ボタン類を非表示 */
+  button,
+  [role="tablist"] {
+    display: none !important;
+  }
+}
