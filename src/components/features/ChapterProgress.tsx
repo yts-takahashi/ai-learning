@@ -28,7 +28,7 @@ export default function ChapterProgress({ lessons }: ChapterProgressProps) {
           チャプター完了
         </span>
       ) : (
-        <span className="text-xs text-blue-600 font-medium">（残り {remaining} レッスン）</span>
+        <span className="text-xs text-blue-600 font-medium">（残り {remaining}/{lessons.length}）</span>
       )}
     </span>
   );
