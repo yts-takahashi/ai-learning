@@ -45,7 +45,25 @@ export default function LearningInsights({ chapters }: LearningInsightsProps) {
     });
   }, [chapters, completedSlugs, isLoaded]);
 
-  if (!isLoaded) return null;
+  if (!isLoaded) {
+    return (
+      <div className="bg-white rounded-xl border border-gray-200 p-6 animate-pulse">
+        <div className="h-5 w-40 bg-gray-200 rounded mb-2" />
+        <div className="h-3 w-56 bg-gray-100 rounded mb-5" />
+        <div className="space-y-5">
+          {[1, 2, 3].map((i) => (
+            <div key={i}>
+              <div className="flex justify-between mb-1.5">
+                <div className="h-4 w-32 bg-gray-200 rounded" />
+                <div className="h-4 w-20 bg-gray-100 rounded" />
+              </div>
+              <div className="h-1.5 bg-gray-100 rounded-full" />
+            </div>
+          ))}
+        </div>
+      </div>
+    );
+  }
 
   const activeChapters = insights.filter((ch) => ch.completed > 0 || ch.avgQuizRate !== null);
   if (activeChapters.length === 0) return null;
@@ -97,6 +115,11 @@ export default function LearningInsights({ chapters }: LearningInsightsProps) {
               <div
                 className={`h-full rounded-full transition-all ${completionColor(ch.completionRate)}`}
                 style={{ width: `${ch.completionRate}%` }}
+                role="progressbar"
+                aria-valuenow={ch.completionRate}
+                aria-valuemin={0}
+                aria-valuemax={100}
+                aria-label={`${ch.title} 完了率 ${ch.completionRate}%`}
               />
             </div>
           </div>
