@@ -24,9 +24,24 @@ export async function generateMetadata({ params }: LessonPageProps) {
   const lesson = getLessonBySlug(slug);
   if (!lesson) return {};
 
+  const title = `${lesson.title} — AI Learning`;
+  const description = `${lesson.chapterTitle} | ${DIFFICULTY_LABELS[lesson.difficulty]} | ${lesson.duration}分`;
+
   return {
-    title: `${lesson.title} — AI Learning`,
-    description: `${lesson.chapterTitle} | ${DIFFICULTY_LABELS[lesson.difficulty]} | ${lesson.duration}分`,
+    title,
+    description,
+    openGraph: {
+      title,
+      description,
+      type: 'article',
+      locale: 'ja_JP',
+      siteName: 'AI Learning',
+    },
+    twitter: {
+      card: 'summary',
+      title,
+      description,
+    },
   };
 }
 

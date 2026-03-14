@@ -6,6 +6,20 @@ export const metadata: Metadata = {
   title: 'AI Learning — 生成AIを体系的に学ぶ',
   description:
     'プロンプトエンジニアリングからAPI活用・RAG/エージェントまで、実践的なハンズオンを通じて学べる日本語学習プラットフォーム',
+  openGraph: {
+    title: 'AI Learning — 生成AIを体系的に学ぶ',
+    description:
+      'プロンプトエンジニアリングからAPI活用・RAG/エージェントまで、実践的なハンズオンを通じて学べる日本語学習プラットフォーム',
+    type: 'website',
+    locale: 'ja_JP',
+    siteName: 'AI Learning',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'AI Learning — 生成AIを体系的に学ぶ',
+    description:
+      'プロンプトエンジニアリングからAPI活用・RAG/エージェントまで、実践的なハンズオンを通じて学べる日本語学習プラットフォーム',
+  },
 };
 
 export default function RootLayout({
