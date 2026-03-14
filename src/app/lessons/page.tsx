@@ -1,7 +1,8 @@
 import { Suspense } from 'react';
 import type { Metadata } from 'next';
-import { getChapters } from '@/lib/lessons';
+import { getChapters, getAllLessons } from '@/lib/lessons';
 import { CHAPTERS } from '@/lib/constants';
+import { educationalCourseSchema } from '@/lib/schema';
 import LessonCard from '@/components/features/LessonCard';
 import LessonsProgress from '@/components/features/LessonsProgress';
 import ChapterFilter from '@/components/features/ChapterFilter';
@@ -33,12 +34,18 @@ export default async function LessonsPage({ searchParams }: LessonsPageProps) {
   const chapterNum = params.chapter ? parseInt(params.chapter, 10) : null;
 
   const chapters = getChapters();
+  const allLessons = getAllLessons();
+  const courseSchema = educationalCourseSchema(allLessons);
 
   const filteredChapters =
     chapterNum !== null ? chapters.filter((ch) => ch.number === chapterNum) : chapters;
 
   return (
     <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(courseSchema) }}
+      />
       <div className="mb-8">
         <h1 className="text-3xl font-bold text-gray-900 mb-2">レッスン一覧</h1>
         <p className="text-gray-500">チャプターごとにレッスンを確認できます</p>

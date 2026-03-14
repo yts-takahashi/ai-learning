@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import './globals.css';
 import Header from '@/components/layout/Header';
+import { websiteSchema } from '@/lib/schema';
 
 export const metadata: Metadata = {
   title: 'AI Learning — 生成AIを体系的に学ぶ',
@@ -29,6 +30,12 @@ export default function RootLayout({
 }) {
   return (
     <html lang="ja">
+      <head>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteSchema()) }}
+        />
+      </head>
       <body className="bg-gray-50 text-gray-900 min-h-screen">
         <a
           href="#main-content"

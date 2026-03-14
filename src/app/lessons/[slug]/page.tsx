@@ -5,6 +5,7 @@ import { getLessonBySlug, getAdjacentLessons, getAllLessons, getLessonsByChapter
 import { parseLessonContent } from '@/lib/parseLesson';
 import { parseQuizMarkdown } from '@/lib/parseQuiz';
 import { CHAPTERS, DIFFICULTY_LABELS } from '@/lib/constants';
+import { lessonSchema, breadcrumbSchema } from '@/lib/schema';
 import Badge from '@/components/ui/Badge';
 import LessonContent from '@/components/features/LessonContent';
 import LessonComplete from '@/components/features/LessonComplete';
@@ -65,9 +66,24 @@ export default async function LessonPage({ params }: LessonPageProps) {
   const quizQuestions = quiz ? parseQuizMarkdown(quiz) : [];
 
   const chapterInfo = CHAPTERS.find((c) => c.number === lesson.chapter);
+  const ldLesson = lessonSchema(lesson);
+  const ldBreadcrumb = breadcrumbSchema([
+    { name: 'ホーム', url: 'https://ai-learning.example.com' },
+    { name: 'レッスン一覧', url: 'https://ai-learning.example.com/lessons' },
+    { name: lesson.chapterTitle, url: `https://ai-learning.example.com/lessons?chapter=${lesson.chapter}` },
+    { name: lesson.title, url: `https://ai-learning.example.com/lessons/${lesson.slug}` },
+  ]);
 
   return (
     <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(ldLesson) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(ldBreadcrumb) }}
+      />
       <LessonKeyboardNav prevSlug={prev?.slug ?? null} nextSlug={next?.slug ?? null} />
       {/* Breadcrumb */}
       <nav className="flex items-center gap-2 text-sm text-gray-500 mb-6">
