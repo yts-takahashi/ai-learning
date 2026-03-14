@@ -1,10 +1,28 @@
 import { Suspense } from 'react';
+import type { Metadata } from 'next';
 import { getChapters } from '@/lib/lessons';
 import { CHAPTERS } from '@/lib/constants';
 import LessonCard from '@/components/features/LessonCard';
 import LessonsProgress from '@/components/features/LessonsProgress';
 import ChapterFilter from '@/components/features/ChapterFilter';
 import ChapterProgress from '@/components/features/ChapterProgress';
+
+export const metadata: Metadata = {
+  title: 'レッスン一覧 — AI Learning',
+  description: '生成AI学習の全レッスン一覧。プロンプトエンジニアリングからRAG・エージェントまで全10チャプター。',
+  openGraph: {
+    title: 'レッスン一覧 — AI Learning',
+    description: '生成AI学習の全レッスン一覧。プロンプトエンジニアリングからRAG・エージェントまで全10チャプター。',
+    type: 'website',
+    locale: 'ja_JP',
+    siteName: 'AI Learning',
+  },
+  twitter: {
+    card: 'summary',
+    title: 'レッスン一覧 — AI Learning',
+    description: '生成AI学習の全レッスン一覧。プロンプトエンジニアリングからRAG・エージェントまで全10チャプター。',
+  },
+};
 
 interface LessonsPageProps {
   searchParams: Promise<{ chapter?: string }>;
