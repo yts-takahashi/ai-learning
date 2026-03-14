@@ -130,6 +130,15 @@ export default function SearchModal({ items }: SearchModalProps) {
               </button>
             </div>
 
+            {/* スクリーンリーダー向け結果通知 */}
+            <div role="status" aria-live="polite" aria-atomic="true" className="sr-only">
+              {query && results.length > 0
+                ? `${results.length}件のレッスンが見つかりました`
+                : query && results.length === 0
+                  ? '一致するレッスンが見つかりません'
+                  : ''}
+            </div>
+
             {/* 検索結果 */}
             {results.length > 0 && (
               <ul className="max-h-80 overflow-y-auto py-2" role="listbox">
