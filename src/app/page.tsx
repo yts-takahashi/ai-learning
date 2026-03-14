@@ -1,9 +1,11 @@
 import Link from 'next/link';
 import { CHAPTERS, TOTAL_LESSONS } from '@/lib/constants';
+import HomeProgressBanner from '@/components/features/HomeProgressBanner';
 
 export default function Home() {
   return (
     <div>
+      <HomeProgressBanner />
       {/* Hero Section */}
       <section className="bg-gradient-to-br from-blue-600 to-indigo-700 text-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
