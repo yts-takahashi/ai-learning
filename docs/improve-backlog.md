@@ -4,7 +4,13 @@
 
 ## 未実装
 
-
+- [ ] **スキップリンク（Skip to main content）** | アクセシビリティ | Impact:High | Effort:Low | layoutにスキップリンクを追加しキーボードユーザーのアクセシビリティを向上
+- [ ] **ホームページのWebSiteスキーマ** | SEO | Impact:High | Effort:Low | ホームページにWebSite/Organization LD+JSONを追加
+- [ ] **チャプター推定総学習時間の表示** | UX/UI | Impact:Medium | Effort:Low | レッスン一覧ページの各チャプターヘッダーに推定総学習時間を表示
+- [ ] **弱点分析（クイズ不正解問題一覧）** | 学習体験 | Impact:High | Effort:Medium | ダッシュボードに正答率が低いレッスンをリストアップして復習を促す
+- [ ] **ホームページに進捗サマリーバナー** | UX/UI | Impact:High | Effort:Medium | 既に学習済みユーザー向けに進捗とcontinueリンクを表示するclientコンポーネント
+- [ ] **クイズ低正答率レッスン復習推薦** | 学習体験 | Impact:High | Effort:Medium | ダッシュボードに正答率60%未満のレッスン一覧と復習ボタンを表示
+- [ ] **印刷スタイル** | UX/UI | Impact:Medium | Effort:Low | globals.cssに@media printを追加しレッスン記事を綺麗に印刷できるようにする
 
 ## 実装済み（このセッション）
 

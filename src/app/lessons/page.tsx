@@ -90,6 +90,9 @@ export default async function LessonsPage({ searchParams }: LessonsPageProps) {
                   {chapterInfo && (
                     <p className="text-sm text-gray-500">{chapterInfo.description}</p>
                   )}
+                  <p className="text-xs text-gray-400 mt-0.5">
+                    約{Math.round(chapter.lessons.reduce((sum, l) => sum + l.duration, 0) / 60 * 10) / 10}時間（{chapter.lessons.reduce((sum, l) => sum + l.duration, 0)}分）
+                  </p>
                 </div>
               </div>
 
