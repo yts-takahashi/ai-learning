@@ -9,14 +9,36 @@ interface WeakLessonsProps {
 }
 
 export default function WeakLessons({ lessonTitleMap }: WeakLessonsProps) {
-  const weakLessons = useMemo(() => {
+  const { weakLessons, hasAttempts, allPassed } = useMemo(() => {
     const history = getQuizHistory();
     const stats = getStatsByLesson(history);
-    return stats
+    const has = stats.length > 0;
+    const weak = stats
       .filter((s) => s.bestRate < 70)
       .sort((a, b) => a.bestRate - b.bestRate)
       .slice(0, 5);
+    return { weakLessons: weak, hasAttempts: has, allPassed: has && weak.length === 0 };
   }, []);
+
+  if (!hasAttempts) return null;
+
+  if (allPassed) {
+    return (
+      <div className="bg-green-50 rounded-xl border border-green-200 p-6">
+        <div className="flex items-center gap-2">
+          <div className="w-8 h-8 bg-green-100 rounded-lg flex items-center justify-center flex-shrink-0">
+            <svg className="w-4 h-4 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+          </div>
+          <div>
+            <p className="font-semibold text-green-800">クイズ全問70%以上達成！</p>
+            <p className="text-sm text-green-600">挑戦したすべてのレッスンで良いスコアを出しています。</p>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   if (weakLessons.length === 0) return null;
 
