@@ -4,6 +4,7 @@ import { useProgress } from '@/hooks/useProgress';
 import { getSessions } from '@/lib/sessionHistory';
 import { getQuizHistory } from '@/lib/quizHistory';
 import { getQuizRateTextColor } from '@/lib/quizUtils';
+import { Skeleton } from '@/components/ui/Skeleton';
 import { useMemo } from 'react';
 
 interface ChapterInfo {
@@ -49,16 +50,16 @@ export default function LearningInsights({ chapters }: LearningInsightsProps) {
   if (!isLoaded) {
     return (
       <div className="bg-white rounded-xl border border-gray-200 p-6 animate-pulse">
-        <div className="h-5 w-40 bg-gray-200 rounded mb-2" />
-        <div className="h-3 w-56 bg-gray-100 rounded mb-5" />
+        <Skeleton className="h-5 w-40 mb-2" />
+        <Skeleton className="h-3 w-56 mb-5" />
         <div className="space-y-5">
           {[1, 2, 3].map((i) => (
             <div key={i}>
               <div className="flex justify-between mb-1.5">
-                <div className="h-4 w-32 bg-gray-200 rounded" />
-                <div className="h-4 w-20 bg-gray-100 rounded" />
+                <Skeleton className="h-4 w-32" />
+                <Skeleton className="h-4 w-20" />
               </div>
-              <div className="h-1.5 bg-gray-100 rounded-full" />
+              <Skeleton className="h-1.5 w-full rounded-full" />
             </div>
           ))}
         </div>

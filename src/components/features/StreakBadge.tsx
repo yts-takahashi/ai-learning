@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import { getStreakInfo, type StreakInfo } from '@/lib/streakTracker';
+import { Skeleton } from '@/components/ui/Skeleton';
 
 export default function StreakBadge() {
   const [info, setInfo] = useState<StreakInfo | null>(null);
@@ -16,12 +17,12 @@ export default function StreakBadge() {
   if (!loaded) {
     return (
       <div className="bg-white rounded-xl border border-gray-200 p-6 animate-pulse">
-        <div className="h-5 w-32 bg-gray-200 rounded mb-4" />
+        <Skeleton className="h-5 w-32 mb-4" />
         <div className="flex items-center gap-6">
-          <div className="w-16 h-16 bg-gray-200 rounded-full" />
+          <Skeleton className="w-16 h-16 rounded-full" />
           <div className="flex-1 space-y-3">
-            <div className="h-2 bg-gray-200 rounded-full" />
-            <div className="h-3 w-40 bg-gray-200 rounded" />
+            <Skeleton className="h-2 w-full rounded-full" />
+            <Skeleton className="h-3 w-40" />
           </div>
         </div>
       </div>

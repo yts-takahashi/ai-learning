@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { getQuizHistory, getStatsByLesson, type LessonQuizStat } from '@/lib/quizHistory';
 import { getQuizRateTextColor, getQuizRateBarColor } from '@/lib/quizUtils';
+import { Skeleton } from '@/components/ui/Skeleton';
 
 interface QuizHistoryDetailProps {
   lessonTitleMap: Record<string, string>;
@@ -36,16 +37,16 @@ export default function QuizHistoryDetail({ lessonTitleMap }: QuizHistoryDetailP
   if (!loaded) {
     return (
       <div className="bg-white rounded-xl border border-gray-200 p-6 animate-pulse">
-        <div className="h-5 w-40 bg-gray-200 rounded mb-4" />
+        <Skeleton className="h-5 w-40 mb-4" />
         <div className="space-y-2">
           {[1, 2, 3].map((i) => (
             <div key={i} className="flex items-center gap-3 p-3">
-              <div className="w-10 h-4 bg-gray-200 rounded" />
+              <Skeleton className="w-10 h-4" />
               <div className="flex-1">
-                <div className="h-4 w-48 bg-gray-200 rounded mb-1" />
-                <div className="h-3 w-32 bg-gray-100 rounded" />
+                <Skeleton className="h-4 w-48 mb-1" />
+                <Skeleton className="h-3 w-32" />
               </div>
-              <div className="w-16 h-1.5 bg-gray-100 rounded-full" />
+              <Skeleton className="w-16 h-1.5 rounded-full" />
             </div>
           ))}
         </div>
