@@ -7,6 +7,7 @@ import LessonCard from '@/components/features/LessonCard';
 import LessonsProgress from '@/components/features/LessonsProgress';
 import ChapterFilter from '@/components/features/ChapterFilter';
 import ChapterProgress from '@/components/features/ChapterProgress';
+import ChapterRoadmap from '@/components/features/ChapterRoadmap';
 
 export const metadata: Metadata = {
   title: 'レッスン一覧 — AI Learning',
@@ -52,6 +53,8 @@ export default async function LessonsPage({ searchParams }: LessonsPageProps) {
       </div>
 
       <LessonsProgress />
+
+      {chapterNum === null && <ChapterRoadmap />}
 
       <Suspense>
         <ChapterFilter />
