@@ -36,7 +36,14 @@ export default function LearningCalendar() {
     return { days: result, maxCount: max, totalActiveDays: active };
   }, []);
 
-  if (totalActiveDays === 0) return null;
+  if (totalActiveDays === 0) {
+    return (
+      <div className="bg-white rounded-xl border border-gray-200 p-6">
+        <h2 className="font-bold text-lg mb-3">学習カレンダー</h2>
+        <p className="text-sm text-gray-400 text-center py-4">学習を始めるとここに記録されます</p>
+      </div>
+    );
+  }
 
   function cellColor(count: number): string {
     if (count === 0) return 'bg-gray-100';
