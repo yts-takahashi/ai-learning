@@ -105,7 +105,7 @@ export default function LessonContent({
           role="tabpanel"
           aria-labelledby="tab-quiz"
         >
-          <Quiz questions={quizQuestions} nextSlug={nextSlug} />
+          <Quiz questions={quizQuestions} nextSlug={nextSlug} slug={lesson.slug} />
         </div>
       )}
     </div>

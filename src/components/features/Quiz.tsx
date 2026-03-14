@@ -3,6 +3,7 @@
 import { useState, useMemo } from 'react';
 import Link from 'next/link';
 import { QuizQuestion } from '@/lib/types';
+import { saveQuizAttempt } from '@/lib/quizHistory';
 
 function shuffleOptions(question: QuizQuestion): QuizQuestion {
   const indices = question.options.map((_, i) => i);
@@ -21,6 +22,7 @@ function shuffleOptions(question: QuizQuestion): QuizQuestion {
 interface QuizProps {
   questions: QuizQuestion[];
   nextSlug?: string | null;
+  slug?: string;
 }
 
 interface QuestionState {
@@ -28,7 +30,7 @@ interface QuestionState {
   revealed: boolean;
 }
 
-export default function Quiz({ questions, nextSlug }: QuizProps) {
+export default function Quiz({ questions, nextSlug, slug }: QuizProps) {
   const shuffled = useMemo(() => questions.map(shuffleOptions), [questions]);
   const [states, setStates] = useState<QuestionState[]>(
     questions.map(() => ({ selected: null, revealed: false })),
@@ -150,7 +152,10 @@ export default function Quiz({ questions, nextSlug }: QuizProps) {
       {answeredAll && !showScore && (
         <div className="text-center">
           <button
-            onClick={() => setShowScore(true)}
+            onClick={() => {
+              if (slug) saveQuizAttempt(slug, score, shuffled.length);
+              setShowScore(true);
+            }}
             className="px-6 py-3 bg-purple-600 text-white rounded-lg font-semibold hover:bg-purple-700 transition-colors"
           >
             スコアを確認する
