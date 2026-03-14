@@ -4,6 +4,7 @@ import { CHAPTERS } from '@/lib/constants';
 import LessonCard from '@/components/features/LessonCard';
 import LessonsProgress from '@/components/features/LessonsProgress';
 import ChapterFilter from '@/components/features/ChapterFilter';
+import ChapterProgress from '@/components/features/ChapterProgress';
 
 interface LessonsPageProps {
   searchParams: Promise<{ chapter?: string }>;
@@ -41,8 +42,11 @@ export default async function LessonsPage({ searchParams }: LessonsPageProps) {
                 <div className="w-10 h-10 bg-blue-600 rounded-lg flex items-center justify-center flex-shrink-0">
                   <span className="text-white font-bold text-sm">{chapter.number}</span>
                 </div>
-                <div>
-                  <h2 className="font-bold text-xl text-gray-900">{chapter.title}</h2>
+                <div className="flex-1 min-w-0">
+                  <div className="flex items-center gap-3 flex-wrap">
+                    <h2 className="font-bold text-xl text-gray-900">{chapter.title}</h2>
+                    <ChapterProgress lessons={chapter.lessons} />
+                  </div>
                   {chapterInfo && (
                     <p className="text-sm text-gray-500">{chapterInfo.description}</p>
                   )}

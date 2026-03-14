@@ -1,7 +1,7 @@
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
 import { MDXRemote } from 'next-mdx-remote/rsc';
-import { getLessonBySlug, getAdjacentLessons, getAllLessons } from '@/lib/lessons';
+import { getLessonBySlug, getAdjacentLessons, getAllLessons, getLessonsByChapter } from '@/lib/lessons';
 import { parseLessonContent } from '@/lib/parseLesson';
 import { parseQuizMarkdown } from '@/lib/parseQuiz';
 import { CHAPTERS, DIFFICULTY_LABELS } from '@/lib/constants';
@@ -9,6 +9,7 @@ import Badge from '@/components/ui/Badge';
 import LessonContent from '@/components/features/LessonContent';
 import LessonComplete from '@/components/features/LessonComplete';
 import LessonKeyboardNav from '@/components/features/LessonKeyboardNav';
+import ChapterProgress from '@/components/features/ChapterProgress';
 import { mdxComponents } from '@/components/mdx/mdxComponents';
 
 interface LessonPageProps {
@@ -55,6 +56,7 @@ export default async function LessonPage({ params }: LessonPageProps) {
   }
 
   const { prev, next } = getAdjacentLessons(slug);
+  const chapterLessons = getLessonsByChapter(lesson.chapter);
   const { article, handson, quiz } = parseLessonContent(lesson.content);
 
   const mdOptions = { mdxOptions: { format: 'md' as const } };
@@ -94,6 +96,7 @@ export default async function LessonPage({ params }: LessonPageProps) {
             Ch.{lesson.chapter} — {chapterInfo?.title ?? lesson.chapterTitle}
           </span>
           <Badge difficulty={lesson.difficulty} />
+          <ChapterProgress lessons={chapterLessons} />
         </div>
         <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-4">{lesson.title}</h1>
         <div className="flex flex-wrap gap-4 text-sm text-gray-500">
