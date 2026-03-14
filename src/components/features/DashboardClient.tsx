@@ -10,6 +10,7 @@ import QuizHistoryDetail from '@/components/features/QuizHistoryDetail';
 import LearningInsights from '@/components/features/LearningInsights';
 import WeakLessons from '@/components/features/WeakLessons';
 import LearningCalendar from '@/components/features/LearningCalendar';
+import WeeklyGoal from '@/components/features/WeeklyGoal';
 import { CHAPTERS, TOTAL_LESSONS } from '@/lib/constants';
 
 interface ChapterProgressInfo {
@@ -151,6 +152,7 @@ export default function DashboardClient({ chapterProgressInfos, allSlugs, lesson
         </div>
       )}
 
+      <WeeklyGoal />
       <LearningCalendar />
       <StreakBadge />
       <LearningTimeStats />
