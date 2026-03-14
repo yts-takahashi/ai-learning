@@ -92,7 +92,7 @@ export default function DashboardClient({ chapterProgressInfos, allSlugs, lesson
 
       {/* Overall Progress */}
       <div className="bg-white rounded-xl border border-gray-200 p-6">
-        <h2 className="font-bold text-lg mb-1">全体の進捗</h2>
+        <h2 className="font-bold text-xl mb-1">全体の進捗</h2>
         {totalCompleted > 0 && (
           <p className="text-sm text-gray-500 mb-4">
             {totalCompleted === TOTAL_LESSONS
