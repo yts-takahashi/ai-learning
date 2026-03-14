@@ -204,7 +204,7 @@ export default function Quiz({ questions, nextSlug, slug, onGoToArticle }: QuizP
               </svg>
               もう一度挑戦する
             </button>
-            {score === questions.length && nextSlug && (
+            {nextSlug && (
               <Link
                 href={`/lessons/${nextSlug}`}
                 className="inline-flex items-center gap-2 bg-purple-600 text-white px-6 py-2.5 rounded-lg font-semibold hover:bg-purple-700 transition-colors text-sm"
