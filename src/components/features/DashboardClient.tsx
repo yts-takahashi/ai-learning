@@ -152,7 +152,7 @@ export default function DashboardClient({ chapterProgressInfos, allSlugs, lesson
         </div>
       )}
 
-      <WeeklyGoal />
+      <WeeklyGoal lessonTitleMap={lessonTitleMap} />
       <LearningCalendar />
       <StreakBadge />
       <LearningTimeStats />

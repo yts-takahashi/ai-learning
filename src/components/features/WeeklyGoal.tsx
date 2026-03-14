@@ -6,7 +6,7 @@ import { getSessions } from '@/lib/sessionHistory';
 const STORAGE_KEY = 'weekly-goal';
 const DEFAULT_GOAL = 5;
 
-function getThisWeekCount(): number {
+function getThisWeekData(): { count: number; slugs: string[] } {
   const sessions = getSessions();
   const now = new Date();
   const startOfWeek = new Date(now);
@@ -16,12 +16,14 @@ function getThisWeekCount(): number {
   startOfWeek.setDate(now.getDate() - diff);
   startOfWeek.setHours(0, 0, 0, 0);
 
-  const slugsThisWeek = new Set(
-    sessions
-      .filter((s) => s.timestamp >= startOfWeek.getTime())
-      .map((s) => s.slug),
+  const slugsThisWeek = Array.from(
+    new Set(
+      sessions
+        .filter((s) => s.timestamp >= startOfWeek.getTime())
+        .map((s) => s.slug),
+    ),
   );
-  return slugsThisWeek.size;
+  return { count: slugsThisWeek.length, slugs: slugsThisWeek };
 }
 
 function loadGoal(): number {
@@ -33,9 +35,14 @@ function loadGoal(): number {
   }
 }
 
-export default function WeeklyGoal() {
+interface WeeklyGoalProps {
+  lessonTitleMap?: Record<string, string>;
+}
+
+export default function WeeklyGoal({ lessonTitleMap = {} }: WeeklyGoalProps) {
   const [goal, setGoal] = useState<number>(DEFAULT_GOAL);
   const [thisWeek, setThisWeek] = useState<number>(0);
+  const [weekSlugs, setWeekSlugs] = useState<string[]>([]);
   const [editing, setEditing] = useState(false);
   const [inputVal, setInputVal] = useState<string>(String(DEFAULT_GOAL));
 
@@ -43,7 +50,9 @@ export default function WeeklyGoal() {
     const g = loadGoal();
     setGoal(g);
     setInputVal(String(g));
-    setThisWeek(getThisWeekCount());
+    const { count, slugs } = getThisWeekData();
+    setThisWeek(count);
+    setWeekSlugs(slugs);
   }, []);
 
   const saveGoal = useCallback(() => {
@@ -122,7 +131,7 @@ export default function WeeklyGoal() {
         )}
       </div>
 
-      <div className="w-full h-2.5 bg-gray-100 rounded-full overflow-hidden">
+      <div className="w-full h-2.5 bg-gray-100 rounded-full overflow-hidden mb-4">
         <div
           className={`h-full rounded-full transition-all ${achieved ? 'bg-green-500' : 'bg-blue-500'}`}
           style={{ width: `${pct}%` }}
@@ -132,6 +141,17 @@ export default function WeeklyGoal() {
           aria-valuemax={goal}
         />
       </div>
+
+      {weekSlugs.length > 0 && (
+        <div className="space-y-1">
+          {weekSlugs.map((slug) => (
+            <div key={slug} className="flex items-center gap-2 text-xs text-gray-500">
+              <div className="w-1.5 h-1.5 rounded-full bg-blue-400 flex-shrink-0" />
+              <span className="truncate">{lessonTitleMap[slug] ?? slug}</span>
+            </div>
+          ))}
+        </div>
+      )}
     </div>
   );
 }
