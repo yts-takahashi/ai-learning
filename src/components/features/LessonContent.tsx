@@ -27,6 +27,11 @@ export default function LessonContent({
 }: LessonContentProps) {
   const [activeTab, setActiveTab] = useState<Tab>('article');
 
+  function switchTab(tab: Tab) {
+    setActiveTab(tab);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
   const hasHandsOn = lesson.hasHandsOn && handsOnContent !== null;
   const hasQuiz = lesson.hasQuiz && quizQuestions.length > 0;
 
@@ -47,7 +52,7 @@ export default function LessonContent({
             aria-selected={activeTab === tab.id}
             aria-controls={`tabpanel-${tab.id}`}
             id={`tab-${tab.id}`}
-            onClick={() => tab.available && setActiveTab(tab.id)}
+            onClick={() => tab.available && switchTab(tab.id)}
             disabled={!tab.available}
             aria-disabled={!tab.available}
             className={`px-6 py-3 text-sm font-medium border-b-2 transition-colors ${
@@ -106,7 +111,7 @@ export default function LessonContent({
           role="tabpanel"
           aria-labelledby="tab-quiz"
         >
-          <Quiz questions={quizQuestions} nextSlug={nextSlug} slug={lesson.slug} onGoToArticle={() => setActiveTab('article')} />
+          <Quiz questions={quizQuestions} nextSlug={nextSlug} slug={lesson.slug} onGoToArticle={() => switchTab('article')} />
         </div>
       )}
     </div>

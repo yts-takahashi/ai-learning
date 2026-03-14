@@ -141,7 +141,7 @@ export default function SearchModal({ items }: SearchModalProps) {
 
             {/* 検索結果 */}
             {results.length > 0 && (
-              <ul className="max-h-80 overflow-y-auto py-2" role="listbox">
+              <ul className="max-h-80 overflow-y-auto py-2" role="listbox" aria-label="検索結果">
                 {results.map((item, i) => (
                   <li key={item.slug} role="option" aria-selected={i === activeIndex}>
                     <button

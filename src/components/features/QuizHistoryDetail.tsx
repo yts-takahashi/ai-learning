@@ -98,6 +98,7 @@ export default function QuizHistoryDetail({ lessonTitleMap }: QuizHistoryDetailP
         <button
           onClick={() => setShowAll((v) => !v)}
           className="mt-3 w-full text-xs text-gray-400 hover:text-blue-600 transition-colors py-1"
+          aria-expanded={showAll}
         >
           {showAll ? '折りたたむ' : `他 ${stats.length - INITIAL_LIMIT} 件を表示`}
         </button>

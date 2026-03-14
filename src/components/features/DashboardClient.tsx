@@ -12,6 +12,7 @@ import WeakLessons from '@/components/features/WeakLessons';
 import LearningCalendar from '@/components/features/LearningCalendar';
 import WeeklyGoal from '@/components/features/WeeklyGoal';
 import { CHAPTERS, TOTAL_LESSONS } from '@/lib/constants';
+import { Skeleton } from '@/components/ui/Skeleton';
 
 interface ChapterProgressInfo {
   number: number;
@@ -39,9 +40,9 @@ export default function DashboardClient({ chapterProgressInfos, allSlugs, lesson
 
   if (!isLoaded) {
     return (
-      <div className="space-y-6 animate-pulse">
+      <div className="space-y-6">
         {[1, 2, 3].map((i) => (
-          <div key={i} className="h-20 bg-gray-100 rounded-xl" />
+          <Skeleton key={i} className="h-20 rounded-xl" />
         ))}
       </div>
     );
