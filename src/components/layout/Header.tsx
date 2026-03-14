@@ -2,6 +2,7 @@
 
 import Link from 'next/link';
 import { useState } from 'react';
+import { usePathname } from 'next/navigation';
 import { HeaderAuth } from '@/components/layout/HeaderAuth';
 import dynamic from 'next/dynamic';
 import type { SearchItem } from '@/lib/search';
@@ -14,6 +15,14 @@ interface HeaderProps {
 
 export default function Header({ searchItems = [] }: HeaderProps) {
   const [menuOpen, setMenuOpen] = useState(false);
+  const pathname = usePathname();
+
+  function navClass(href: string) {
+    const active = pathname === href || (href !== '/' && pathname.startsWith(href));
+    return active
+      ? 'text-blue-600 font-semibold text-sm transition-colors'
+      : 'text-gray-600 hover:text-gray-900 text-sm font-medium transition-colors';
+  }
 
   return (
     <header className="bg-white border-b border-gray-200 sticky top-0 z-50">
@@ -29,16 +38,10 @@ export default function Header({ searchItems = [] }: HeaderProps) {
           {/* デスクトップナビ */}
           <nav className="hidden sm:flex items-center gap-4">
             <SearchModal items={searchItems} />
-            <Link
-              href="/lessons"
-              className="text-gray-600 hover:text-gray-900 text-sm font-medium transition-colors"
-            >
+            <Link href="/lessons" className={navClass('/lessons')}>
               レッスン一覧
             </Link>
-            <Link
-              href="/dashboard"
-              className="text-gray-600 hover:text-gray-900 text-sm font-medium transition-colors"
-            >
+            <Link href="/dashboard" className={navClass('/dashboard')}>
               ダッシュボード
             </Link>
             <Link
