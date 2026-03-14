@@ -33,10 +33,14 @@ export default function LessonContent({
   return (
     <div>
       {/* Tabs */}
-      <div className="flex border-b border-gray-200 mb-8">
+      <div className="flex border-b border-gray-200 mb-8" role="tablist" aria-label="レッスンコンテンツ">
         {tabs.map((tab) => (
           <button
             key={tab.id}
+            role="tab"
+            aria-selected={activeTab === tab.id}
+            aria-controls={`tabpanel-${tab.id}`}
+            id={`tab-${tab.id}`}
             onClick={() => tab.available && setActiveTab(tab.id)}
             disabled={!tab.available}
             className={`px-6 py-3 text-sm font-medium border-b-2 transition-colors ${
@@ -54,15 +58,25 @@ export default function LessonContent({
 
       {/* Content */}
       {activeTab === 'article' && (
-        <div className="prose prose-gray max-w-none">
+        <div
+          id="tabpanel-article"
+          role="tabpanel"
+          aria-labelledby="tab-article"
+          className="prose prose-gray max-w-none"
+        >
           {articleContent}
         </div>
       )}
 
       {activeTab === 'handson' && handsOnContent && (
-        <div className="bg-green-50 border border-green-200 rounded-xl p-6">
+        <div
+          id="tabpanel-handson"
+          role="tabpanel"
+          aria-labelledby="tab-handson"
+          className="bg-green-50 border border-green-200 rounded-xl p-6"
+        >
           <div className="flex items-center gap-2 mb-4 text-green-700">
-            <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
               <path
                 strokeLinecap="round"
                 strokeLinejoin="round"
@@ -79,7 +93,13 @@ export default function LessonContent({
       )}
 
       {activeTab === 'quiz' && quizQuestions.length > 0 && (
-        <Quiz questions={quizQuestions} />
+        <div
+          id="tabpanel-quiz"
+          role="tabpanel"
+          aria-labelledby="tab-quiz"
+        >
+          <Quiz questions={quizQuestions} />
+        </div>
       )}
     </div>
   );
