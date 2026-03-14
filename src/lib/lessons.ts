@@ -1,8 +1,9 @@
 import fs from 'fs';
 import path from 'path';
 import matter from 'gray-matter';
-import { Lesson, LessonFrontmatter, Chapter } from './types';
+import { Lesson, Chapter } from './types';
 import { CHAPTERS } from './constants';
+import { LessonFrontmatterSchema } from './schemas';
 
 const CONTENT_DIR = path.join(process.cwd(), 'content', 'lessons');
 
@@ -14,10 +15,13 @@ function parseLessonFile(filePath: string): Lesson | null {
   try {
     const fileContents = fs.readFileSync(filePath, 'utf8');
     const { data, content } = matter(fileContents);
-    const frontmatter = data as LessonFrontmatter;
-
+    const result = LessonFrontmatterSchema.safeParse(data);
+    if (!result.success) {
+      console.warn(`Invalid frontmatter in ${filePath}:`, result.error.flatten().fieldErrors);
+      return null;
+    }
     return {
-      ...frontmatter,
+      ...result.data,
       content,
       filePath,
     };
