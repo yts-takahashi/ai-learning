@@ -3,8 +3,10 @@
 import Link from 'next/link';
 import { useState } from 'react';
 import { HeaderAuth } from '@/components/layout/HeaderAuth';
-import SearchModal from '@/components/ui/SearchModal';
+import dynamic from 'next/dynamic';
 import type { SearchItem } from '@/lib/search';
+
+const SearchModal = dynamic(() => import('@/components/ui/SearchModal'), { ssr: false });
 
 interface HeaderProps {
   searchItems?: SearchItem[];
