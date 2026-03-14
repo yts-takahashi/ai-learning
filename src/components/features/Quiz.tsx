@@ -23,6 +23,7 @@ interface QuizProps {
   questions: QuizQuestion[];
   nextSlug?: string | null;
   slug?: string;
+  onGoToArticle?: () => void;
 }
 
 interface QuestionState {
@@ -30,7 +31,7 @@ interface QuestionState {
   revealed: boolean;
 }
 
-export default function Quiz({ questions, nextSlug, slug }: QuizProps) {
+export default function Quiz({ questions, nextSlug, slug, onGoToArticle }: QuizProps) {
   const shuffled = useMemo(() => questions.map(shuffleOptions), [questions]);
   const [states, setStates] = useState<QuestionState[]>(
     questions.map(() => ({ selected: null, revealed: false })),
@@ -143,6 +144,17 @@ export default function Quiz({ questions, nextSlug, slug }: QuizProps) {
                   {isCorrect ? '正解！' : '不正解'}
                 </p>
                 <p className="text-sm text-gray-700">{q.explanation}</p>
+                {!isCorrect && onGoToArticle && (
+                  <button
+                    onClick={onGoToArticle}
+                    className="mt-3 inline-flex items-center gap-1.5 text-xs font-medium text-blue-600 hover:text-blue-800 transition-colors"
+                  >
+                    <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+                    </svg>
+                    記事タブで内容を見直す
+                  </button>
+                )}
               </div>
             )}
           </div>

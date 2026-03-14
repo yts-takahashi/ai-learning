@@ -14,9 +14,9 @@ tmux new-session -d -s $SESSION
 
 # レイアウト:
 # ┌──────────────────────┬──────────────────────┐
-# │                      │  最新コミット         │
+# │                      │  最新コミット(develop)│
 # │  Claude Code         ├──────────────────────┤
-# │  (メイン)            │  PRD進捗             │
+# │  (メイン)            │  改善バックログ       │
 # │                      ├──────────────────────┤
 # │                      │  ファイル数           │
 # ├──────────────────────┴──────────────────────┤
@@ -38,14 +38,14 @@ tmux split-window -v -t $SESSION:0.0 -p 30
 # サイズ調整
 tmux resize-pane -t $SESSION:0.0 -x 55
 
-# 右上: 最新コミット（5秒ごと更新）
+# 右上: 最新コミット・develop（5秒ごと更新）
 tmux send-keys -t $SESSION:0.2 \
-  "while true; do clear; echo '=== 最新コミット ==='; git -C ~/git/ai-learning log --oneline -8 2>/dev/null; sleep 5; done" \
+  "while true; do clear; echo '=== 最新コミット [develop] ==='; git -C ~/git/ai-learning log develop --oneline -10 2>/dev/null; sleep 5; done" \
   Enter
 
-# 右中: PRD進捗（5秒ごと更新）
+# 右中: 改善バックログ（5秒ごと更新）
 tmux send-keys -t $SESSION:0.3 \
-  "while true; do clear; echo '=== PRD進捗 ==='; grep -E '^- \[.\]' ~/git/ai-learning/docs/PRD.md 2>/dev/null | head -15; sleep 5; done" \
+  "while true; do clear; echo '=== 改善バックログ ==='; BACKLOG=~/git/ai-learning/docs/improve-backlog.md; TODO=\$(grep -c '^- \[ \]' \"\$BACKLOG\" 2>/dev/null || echo 0); DONE=\$(grep -c '^- \[x\]' \"\$BACKLOG\" 2>/dev/null || echo 0); echo \"未実装: \${TODO}件  実装済み: \${DONE}件\"; echo ''; echo '-- 未実装 --'; grep '^- \[ \]' \"\$BACKLOG\" 2>/dev/null | sed 's/^- \[ \] \*\*\([^*]*\)\*\*.*/  \1/' | head -10; sleep 5; done" \
   Enter
 
 # 右下: ファイル数（5秒ごと更新）
