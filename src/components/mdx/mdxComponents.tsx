@@ -1,5 +1,6 @@
 import MermaidChart from '@/components/features/MermaidChart';
 import CodeBlock from '@/components/ui/CodeBlock';
+import RelatedLesson from '@/components/ui/RelatedLesson';
 import { ComponentPropsWithoutRef } from 'react';
 
 function Pre({ children, ...props }: ComponentPropsWithoutRef<'pre'>) {
@@ -18,4 +19,5 @@ function Pre({ children, ...props }: ComponentPropsWithoutRef<'pre'>) {
 
 export const mdxComponents = {
   pre: Pre,
+  RelatedLesson,
 };
