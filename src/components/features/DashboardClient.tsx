@@ -5,6 +5,7 @@ import { useProgress } from '@/hooks/useProgress';
 import ProgressBar from '@/components/ui/ProgressBar';
 import QuizStats from '@/components/features/QuizStats';
 import LearningTimeStats from '@/components/features/LearningTimeStats';
+import StreakBadge from '@/components/features/StreakBadge';
 import QuizHistoryDetail from '@/components/features/QuizHistoryDetail';
 import { CHAPTERS, TOTAL_LESSONS } from '@/lib/constants';
 
@@ -134,6 +135,7 @@ export default function DashboardClient({ chapterProgressInfos, allSlugs, lesson
         </div>
       )}
 
+      <StreakBadge />
       <LearningTimeStats />
       <QuizStats />
       <QuizHistoryDetail lessonTitleMap={lessonTitleMap} />
