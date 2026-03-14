@@ -6,9 +6,13 @@
 
 
 
-
 ## 実装済み（このセッション）
 
+- [x] **SearchModalにaria-live追加** | アクセシビリティ | 検索結果件数変化をスクリーンリーダーに通知
+- [x] **BASE_URLを環境変数で管理** | SEO | schema.ts等のハードコードURLをNEXT_PUBLIC_BASE_URL環境変数に統一
+- [x] **Structured Dataにdateとauthorを追加** | SEO | lessonSchema()にdatePublished・dateModified・authorを追加
+- [x] **フォーカスビジュアルの強化** | アクセシビリティ | globals.cssにfocus-visibleスタイルをグローバルに追加
+- [x] **レッスン完了時のアニメーション** | 学習体験 | LessonCompleteのボタン押下時にscaleアニメーションと励ましメッセージを表示
 - [x] **canonical URLの設定（レッスンページ）** | SEO | generateMetadataにalternates.canonicalを追加
 - [x] **WeeklyGoalに今週学習したレッスン名を表示** | 学習体験 | 今週セッションがあるレッスン名をWeeklyGoalカードに一覧表示
 - [x] **本日の学習時間をダッシュボードに表示** | 学習体験 | LearningTimeStatsに今日の学習時間セクションを追加
