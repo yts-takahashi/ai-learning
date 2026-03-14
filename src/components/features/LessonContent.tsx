@@ -49,6 +49,7 @@ export default function LessonContent({
             id={`tab-${tab.id}`}
             onClick={() => tab.available && setActiveTab(tab.id)}
             disabled={!tab.available}
+            aria-disabled={!tab.available}
             className={`px-6 py-3 text-sm font-medium border-b-2 transition-colors ${
               activeTab === tab.id
                 ? 'border-blue-600 text-blue-600'
