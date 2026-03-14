@@ -33,6 +33,9 @@ export async function generateMetadata({ params }: LessonPageProps) {
   return {
     title,
     description,
+    alternates: {
+      canonical: `https://ai-learning.example.com/lessons/${lesson.slug}`,
+    },
     openGraph: {
       title,
       description,
