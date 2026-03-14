@@ -24,6 +24,13 @@ export default function DashboardPage() {
   const allLessons = getAllLessons();
   const allSlugs = allLessons.map((l) => l.slug);
   const lessonTitleMap = Object.fromEntries(allLessons.map((l) => [l.slug, l.title]));
+  const orderedLessons = allLessons.map((l) => ({
+    slug: l.slug,
+    title: l.title,
+    chapterTitle: l.chapterTitle,
+    chapter: l.chapter,
+    duration: l.duration,
+  }));
 
   const chapterProgressInfos = CHAPTERS.map((chInfo) => {
     const chapter = chapters.find((c) => c.number === chInfo.number);
@@ -42,7 +49,7 @@ export default function DashboardPage() {
         <p className="text-gray-500">学習の進み具合を確認できます</p>
       </div>
 
-      <DashboardClient chapterProgressInfos={chapterProgressInfos} allSlugs={allSlugs} lessonTitleMap={lessonTitleMap} />
+      <DashboardClient chapterProgressInfos={chapterProgressInfos} allSlugs={allSlugs} lessonTitleMap={lessonTitleMap} orderedLessons={orderedLessons} />
     </div>
   );
 }

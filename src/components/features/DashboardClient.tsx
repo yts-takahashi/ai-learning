@@ -11,13 +11,22 @@ interface ChapterProgressInfo {
   slugs: string[];
 }
 
+interface OrderedLesson {
+  slug: string;
+  title: string;
+  chapterTitle: string;
+  chapter: number;
+  duration: number;
+}
+
 interface DashboardClientProps {
   chapterProgressInfos: ChapterProgressInfo[];
   allSlugs: string[];
   lessonTitleMap: Record<string, string>;
+  orderedLessons?: OrderedLesson[];
 }
 
-export default function DashboardClient({ chapterProgressInfos, allSlugs, lessonTitleMap }: DashboardClientProps) {
+export default function DashboardClient({ chapterProgressInfos, allSlugs, lessonTitleMap, orderedLessons = [] }: DashboardClientProps) {
   const { completedSlugs, isLoaded } = useProgress();
 
   if (!isLoaded) {
@@ -31,6 +40,7 @@ export default function DashboardClient({ chapterProgressInfos, allSlugs, lesson
   }
 
   const totalCompleted = allSlugs.filter((s) => completedSlugs.has(s)).length;
+  const nextLesson = orderedLessons.find((l) => !completedSlugs.has(l.slug)) ?? null;
   const recentCompleted = Array.from(completedSlugs)
     .filter((s) => allSlugs.includes(s))
     .slice(-5)
@@ -38,6 +48,29 @@ export default function DashboardClient({ chapterProgressInfos, allSlugs, lesson
 
   return (
     <div className="space-y-8">
+      {/* Next Lesson Recommendation */}
+      {nextLesson && totalCompleted < allSlugs.length && (
+        <Link
+          href={`/lessons/${nextLesson.slug}`}
+          className="flex items-center gap-4 bg-blue-600 rounded-xl p-5 hover:bg-blue-700 transition-colors group"
+        >
+          <div className="w-10 h-10 bg-white/20 rounded-lg flex items-center justify-center flex-shrink-0">
+            <svg className="w-5 h-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" />
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+          </div>
+          <div className="flex-1 min-w-0">
+            <p className="text-xs font-medium text-blue-100 mb-0.5">次に学ぶレッスン</p>
+            <p className="text-base font-bold text-white truncate">{nextLesson.title}</p>
+            <p className="text-xs text-blue-200">Ch.{nextLesson.chapter} — {nextLesson.chapterTitle} · {nextLesson.duration}分</p>
+          </div>
+          <svg className="w-5 h-5 text-blue-200 group-hover:text-white flex-shrink-0 transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+          </svg>
+        </Link>
+      )}
+
       {/* Overall Progress */}
       <div className="bg-white rounded-xl border border-gray-200 p-6">
         <h2 className="font-bold text-lg mb-4">全体の進捗</h2>
