@@ -5,6 +5,7 @@ import { useState, useEffect } from 'react';
 const SHORTCUTS = [
   { key: 'j', description: '次のレッスンへ', scope: 'レッスンページ' },
   { key: 'k', description: '前のレッスンへ', scope: 'レッスンページ' },
+  { key: 'c', description: 'レッスン完了をトグル', scope: 'レッスンページ' },
   { key: '⌘K / Ctrl+K', description: 'レッスン検索を開く', scope: '全ページ' },
   { key: 'Esc', description: '検索・モーダルを閉じる', scope: '全ページ' },
   { key: '?', description: 'ショートカット一覧を表示', scope: '全ページ' },
