@@ -7,9 +7,12 @@
 
 
 
-
 ## 実装済み（このセッション）
 
+- [x] **SearchModalの検索結果リストにaria-labelを追加** | アクセシビリティ | role="listbox"にaria-label="検索結果"を付与
+- [x] **QuizHistoryDetailの展開ボタンにaria-expandedを追加** | アクセシビリティ | 展開/折りたたみ状態をスクリーンリーダーに通知
+- [x] **DashboardClientのスケルトンをSkeletonコンポーネントに統一** | コード品質 | animate-pulse直書きを廃止
+- [x] **LessonContentのタブ切り替え時にスクロール位置をリセット** | UX/UI | switchTab()でwindow.scrollToを呼び出し
 - [x] **クイズ正答率の色分けロジックをユーティリティ関数化** | コード品質 | getQuizRateTextColor/getQuizRateBarColorに集約
 - [x] **モバイルメニューのスライドインアニメーション追加** | UX/UI | Header.tsxのモバイルドロワーにanimate-menu-inを追加
 - [x] **汎用Skeletonコンポーネントの作成** | コード品質 | Skeleton/SkeletonCardコンポーネントで統一
