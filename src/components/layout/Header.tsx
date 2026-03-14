@@ -78,7 +78,7 @@ export default function Header({ searchItems = [] }: HeaderProps) {
       {menuOpen && (
         <div
           id="mobile-menu"
-          className="sm:hidden bg-white border-t border-gray-100 px-4 py-4 space-y-3"
+          className="sm:hidden bg-white border-t border-gray-100 px-4 py-4 space-y-3 animate-menu-in"
         >
           <Link
             href="/lessons"
