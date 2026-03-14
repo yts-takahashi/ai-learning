@@ -71,7 +71,7 @@ export default function WeeklyGoal({ lessonTitleMap = {} }: WeeklyGoalProps) {
   const achieved = thisWeek >= goal;
 
   return (
-    <div className={`bg-white rounded-xl border p-6 ${achieved ? 'border-green-300' : 'border-gray-200'}`}>
+    <div className={`rounded-xl border p-6 ${achieved ? 'bg-green-50 border-green-300' : 'bg-white border-gray-200'}`}>
       <div className="flex items-center justify-between mb-3">
         <h2 className="font-bold text-lg">今週の学習目標</h2>
         {!editing && (
@@ -96,6 +96,7 @@ export default function WeeklyGoal({ lessonTitleMap = {} }: WeeklyGoalProps) {
             onChange={(e) => setInputVal(e.target.value)}
             onKeyDown={(e) => e.key === 'Enter' && saveGoal()}
             className="w-16 border border-gray-300 rounded-lg px-2 py-1 text-sm text-center focus:outline-none focus:border-blue-400"
+            placeholder={String(DEFAULT_GOAL)}
             aria-label="週次目標レッスン数"
             autoFocus
           />
