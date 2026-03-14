@@ -1,6 +1,5 @@
 import type { MetadataRoute } from 'next';
-
-const BASE_URL = 'https://ai-learning.example.com';
+import { BASE_URL } from '@/lib/constants';
 
 export default function robots(): MetadataRoute.Robots {
   return {

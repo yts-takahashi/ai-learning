@@ -1,6 +1,5 @@
 import type { Lesson } from './types';
-
-const BASE_URL = 'https://ai-learning.example.com';
+import { BASE_URL } from './constants';
 
 export function websiteSchema() {
   return {

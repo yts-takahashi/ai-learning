@@ -4,7 +4,7 @@ import { MDXRemote } from 'next-mdx-remote/rsc';
 import { getLessonBySlug, getAdjacentLessons, getAllLessons, getLessonsByChapter } from '@/lib/lessons';
 import { parseLessonContent, extractHeadings } from '@/lib/parseLesson';
 import { parseQuizMarkdown } from '@/lib/parseQuiz';
-import { CHAPTERS, DIFFICULTY_LABELS } from '@/lib/constants';
+import { CHAPTERS, DIFFICULTY_LABELS, BASE_URL } from '@/lib/constants';
 import { lessonSchema, breadcrumbSchema } from '@/lib/schema';
 import Badge from '@/components/ui/Badge';
 import LessonContent from '@/components/features/LessonContent';
@@ -34,7 +34,7 @@ export async function generateMetadata({ params }: LessonPageProps) {
     title,
     description,
     alternates: {
-      canonical: `https://ai-learning.example.com/lessons/${lesson.slug}`,
+      canonical: `${BASE_URL}/lessons/${lesson.slug}`,
     },
     openGraph: {
       title,
@@ -72,10 +72,10 @@ export default async function LessonPage({ params }: LessonPageProps) {
   const chapterInfo = CHAPTERS.find((c) => c.number === lesson.chapter);
   const ldLesson = lessonSchema(lesson);
   const ldBreadcrumb = breadcrumbSchema([
-    { name: 'ホーム', url: 'https://ai-learning.example.com' },
-    { name: 'レッスン一覧', url: 'https://ai-learning.example.com/lessons' },
-    { name: lesson.chapterTitle, url: `https://ai-learning.example.com/lessons?chapter=${lesson.chapter}` },
-    { name: lesson.title, url: `https://ai-learning.example.com/lessons/${lesson.slug}` },
+    { name: 'ホーム', url: '${BASE_URL}' },
+    { name: 'レッスン一覧', url: '${BASE_URL}/lessons' },
+    { name: lesson.chapterTitle, url: `${BASE_URL}/lessons?chapter=${lesson.chapter}` },
+    { name: lesson.title, url: `${BASE_URL}/lessons/${lesson.slug}` },
   ]);
 
   return (

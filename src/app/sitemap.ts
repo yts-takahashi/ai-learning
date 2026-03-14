@@ -1,7 +1,6 @@
 import type { MetadataRoute } from 'next';
 import { getAllLessons } from '@/lib/lessons';
-
-const BASE_URL = 'https://ai-learning.example.com';
+import { BASE_URL } from '@/lib/constants';
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const lessons = getAllLessons();
