@@ -31,7 +31,14 @@ export default function ProgressBar({
           <span>{percentage}%</span>
         </div>
       )}
-      <div className={`w-full bg-gray-200 rounded-full ${heightClass}`}>
+      <div
+        className={`w-full bg-gray-200 rounded-full ${heightClass}`}
+        role="progressbar"
+        aria-valuenow={value}
+        aria-valuemin={0}
+        aria-valuemax={max}
+        aria-label={`${value} / ${max} 完了`}
+      >
         <div
           className={`bg-blue-600 ${heightClass} rounded-full transition-all duration-300`}
           style={{ width: `${percentage}%` }}
