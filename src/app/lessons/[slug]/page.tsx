@@ -147,6 +147,7 @@ export default async function LessonPage({ params }: LessonPageProps) {
           articleContent={articleContent}
           handsOnContent={handsOnContent}
           quizQuestions={quizQuestions}
+          nextSlug={next?.slug ?? null}
         />
 
         {/* Complete Button */}
