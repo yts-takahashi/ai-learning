@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { useProgress } from '@/hooks/useProgress';
 import ProgressBar from '@/components/ui/ProgressBar';
 import QuizStats from '@/components/features/QuizStats';
+import LearningTimeStats from '@/components/features/LearningTimeStats';
 import { CHAPTERS, TOTAL_LESSONS } from '@/lib/constants';
 
 interface ChapterProgressInfo {
@@ -132,6 +133,7 @@ export default function DashboardClient({ chapterProgressInfos, allSlugs, lesson
         </div>
       )}
 
+      <LearningTimeStats />
       <QuizStats />
 
       {recentCompleted.length === 0 && totalCompleted === 0 && (

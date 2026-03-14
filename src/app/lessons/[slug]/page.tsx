@@ -85,7 +85,7 @@ export default async function LessonPage({ params }: LessonPageProps) {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(ldBreadcrumb) }}
       />
-      <LessonKeyboardNav prevSlug={prev?.slug ?? null} nextSlug={next?.slug ?? null} />
+      <LessonKeyboardNav prevSlug={prev?.slug ?? null} nextSlug={next?.slug ?? null} slug={slug} />
       {/* Breadcrumb */}
       <nav className="flex items-center gap-2 text-sm text-gray-500 mb-6">
         <Link href="/" className="hover:text-blue-600 transition-colors">

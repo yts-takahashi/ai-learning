@@ -3,14 +3,17 @@
 import { useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { useSwipe } from '@/hooks/useSwipe';
+import { useSessionTimer } from '@/hooks/useSessionTimer';
 
 interface LessonKeyboardNavProps {
   prevSlug: string | null;
   nextSlug: string | null;
+  slug: string;
 }
 
-export default function LessonKeyboardNav({ prevSlug, nextSlug }: LessonKeyboardNavProps) {
+export default function LessonKeyboardNav({ prevSlug, nextSlug, slug }: LessonKeyboardNavProps) {
   const router = useRouter();
+  useSessionTimer(slug);
   const { onTouchStart, onTouchEnd } = useSwipe(
     nextSlug ? () => router.push(`/lessons/${nextSlug}`) : undefined,
     prevSlug ? () => router.push(`/lessons/${prevSlug}`) : undefined,
