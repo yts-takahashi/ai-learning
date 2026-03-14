@@ -3,6 +3,8 @@
 import { useState } from 'react';
 import { Lesson, QuizQuestion } from '@/lib/types';
 import Quiz from '@/components/features/Quiz';
+import TableOfContents from '@/components/ui/TableOfContents';
+import type { Heading } from '@/lib/parseLesson';
 
 interface LessonContentProps {
   lesson: Lesson;
@@ -10,6 +12,7 @@ interface LessonContentProps {
   handsOnContent: React.ReactNode | null;
   quizQuestions: QuizQuestion[];
   nextSlug?: string | null;
+  headings?: Heading[];
 }
 
 type Tab = 'article' | 'handson' | 'quiz';
@@ -20,6 +23,7 @@ export default function LessonContent({
   handsOnContent,
   quizQuestions,
   nextSlug,
+  headings = [],
 }: LessonContentProps) {
   const [activeTab, setActiveTab] = useState<Tab>('article');
 
@@ -66,6 +70,7 @@ export default function LessonContent({
           aria-labelledby="tab-article"
           className="prose prose-gray max-w-none"
         >
+          <TableOfContents headings={headings} />
           {articleContent}
         </div>
       )}

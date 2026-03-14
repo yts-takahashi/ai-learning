@@ -2,7 +2,7 @@ import { notFound } from 'next/navigation';
 import Link from 'next/link';
 import { MDXRemote } from 'next-mdx-remote/rsc';
 import { getLessonBySlug, getAdjacentLessons, getAllLessons, getLessonsByChapter } from '@/lib/lessons';
-import { parseLessonContent } from '@/lib/parseLesson';
+import { parseLessonContent, extractHeadings } from '@/lib/parseLesson';
 import { parseQuizMarkdown } from '@/lib/parseQuiz';
 import { CHAPTERS, DIFFICULTY_LABELS } from '@/lib/constants';
 import { lessonSchema, breadcrumbSchema } from '@/lib/schema';
@@ -59,6 +59,7 @@ export default async function LessonPage({ params }: LessonPageProps) {
   const { prev, next } = getAdjacentLessons(slug);
   const chapterLessons = getLessonsByChapter(lesson.chapter);
   const { article, handson, quiz } = parseLessonContent(lesson.content);
+  const headings = extractHeadings(article);
 
   const mdOptions = { mdxOptions: { format: 'md' as const } };
   const articleContent = <MDXRemote source={article} options={mdOptions} components={mdxComponents} />;
@@ -164,6 +165,7 @@ export default async function LessonPage({ params }: LessonPageProps) {
           handsOnContent={handsOnContent}
           quizQuestions={quizQuestions}
           nextSlug={next?.slug ?? null}
+          headings={headings}
         />
 
         {/* Complete Button */}

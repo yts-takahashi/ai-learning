@@ -1,3 +1,34 @@
+export interface Heading {
+  id: string;
+  text: string;
+  level: 2 | 3;
+}
+
+export function slugifyHeading(text: string): string {
+  return text
+    .toLowerCase()
+    .replace(/[^\p{L}\p{N}\s-]/gu, '')
+    .trim()
+    .replace(/\s+/g, '-');
+}
+
+export function extractHeadings(markdown: string): Heading[] {
+  const headings: Heading[] = [];
+  const lines = markdown.split('\n');
+  for (const line of lines) {
+    const m2 = line.match(/^##\s+(.+)/);
+    const m3 = line.match(/^###\s+(.+)/);
+    if (m2) {
+      const text = m2[1].trim();
+      headings.push({ id: slugifyHeading(text), text, level: 2 });
+    } else if (m3) {
+      const text = m3[1].trim();
+      headings.push({ id: slugifyHeading(text), text, level: 3 });
+    }
+  }
+  return headings;
+}
+
 /**
  * Splits lesson Markdown content into article, handson, and quiz sections.
  *
