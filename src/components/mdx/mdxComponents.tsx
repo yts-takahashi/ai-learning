@@ -1,7 +1,9 @@
-import MermaidChart from '@/components/features/MermaidChart';
+import dynamic from 'next/dynamic';
 import CodeBlock from '@/components/ui/CodeBlock';
 import RelatedLesson from '@/components/ui/RelatedLesson';
 import { ComponentPropsWithoutRef } from 'react';
+
+const MermaidChart = dynamic(() => import('@/components/features/MermaidChart'), { ssr: false });
 
 function Pre({ children, ...props }: ComponentPropsWithoutRef<'pre'>) {
   // children is typically a <code> element
