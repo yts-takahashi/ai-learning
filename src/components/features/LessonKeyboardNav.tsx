@@ -31,5 +31,14 @@ export default function LessonKeyboardNav({ prevSlug, nextSlug }: LessonKeyboard
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, [prevSlug, nextSlug, router]);
 
-  return null;
+  if (!prevSlug && !nextSlug) return null;
+
+  return (
+    <div className="flex justify-end mb-2" aria-hidden="true">
+      <span className="text-xs text-gray-300 select-none">
+        {prevSlug && <span className="mr-3"><kbd className="font-mono bg-gray-100 text-gray-400 px-1.5 py-0.5 rounded border border-gray-200 text-[11px]">k</kbd> 前</span>}
+        {nextSlug && <span><kbd className="font-mono bg-gray-100 text-gray-400 px-1.5 py-0.5 rounded border border-gray-200 text-[11px]">j</kbd> 次</span>}
+      </span>
+    </div>
+  );
 }
