@@ -6,8 +6,14 @@
 
 
 
+
+
 ## 実装済み（このセッション）
 
+- [x] **StreakBadgeのスケルトンローディング** | UX/UI | ロード中スケルトンを表示、文言をポジティブ表現に変更
+- [x] **Quizのnextが無い時に「レッスン一覧へ」ボタン表示** | 学習体験 | nextSlugがない場合の代替ナビゲーションを追加
+- [x] **LessonCardのquiz正答率を色でフィードバック** | UX/UI | 正答率0-39%赤・40-69%黄・70-99%緑・100%金で色分け
+- [x] **ホームページ Hero section に aria-label を追加** | アクセシビリティ | sectionにaria-labelを付与
 - [x] **SearchModalにaria-live追加** | アクセシビリティ | 検索結果件数変化をスクリーンリーダーに通知
 - [x] **BASE_URLを環境変数で管理** | SEO | schema.ts等のハードコードURLをNEXT_PUBLIC_BASE_URL環境変数に統一
 - [x] **Structured Dataにdateとauthorを追加** | SEO | lessonSchema()にdatePublished・dateModified・authorを追加
