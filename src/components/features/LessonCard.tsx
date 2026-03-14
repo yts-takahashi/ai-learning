@@ -78,7 +78,15 @@ export default function LessonCard({ lesson, allSlugsInOrder }: LessonCardProps)
           {lesson.hasHandsOn && <span className="text-green-600">ハンズオン</span>}
           {lesson.hasQuiz && (
             bestQuizRate !== null ? (
-              <span className={`font-semibold ${bestQuizRate === 100 ? 'text-amber-500' : 'text-purple-600'}`}>
+              <span className={`font-semibold ${
+                bestQuizRate === 100
+                  ? 'text-amber-500'
+                  : bestQuizRate >= 70
+                    ? 'text-green-600'
+                    : bestQuizRate >= 40
+                      ? 'text-yellow-600'
+                      : 'text-red-500'
+              }`}>
                 {bestQuizRate === 100 ? '★' : ''}クイズ{bestQuizRate}%
               </span>
             ) : (
