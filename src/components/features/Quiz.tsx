@@ -204,7 +204,7 @@ export default function Quiz({ questions, nextSlug, slug, onGoToArticle }: QuizP
               </svg>
               もう一度挑戦する
             </button>
-            {nextSlug && (
+            {nextSlug ? (
               <Link
                 href={`/lessons/${nextSlug}`}
                 className="inline-flex items-center gap-2 bg-purple-600 text-white px-6 py-2.5 rounded-lg font-semibold hover:bg-purple-700 transition-colors text-sm"
@@ -213,6 +213,13 @@ export default function Quiz({ questions, nextSlug, slug, onGoToArticle }: QuizP
                 <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                 </svg>
+              </Link>
+            ) : (
+              <Link
+                href="/lessons"
+                className="inline-flex items-center gap-2 bg-white border border-gray-300 text-gray-700 px-5 py-2.5 rounded-lg font-semibold hover:bg-gray-50 transition-colors text-sm"
+              >
+                レッスン一覧へ
               </Link>
             )}
           </div>
