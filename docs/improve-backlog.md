@@ -8,9 +8,11 @@
 
 
 
-
 ## 実装済み（このセッション）
 
+- [x] **クイズ正答率の色分けロジックをユーティリティ関数化** | コード品質 | getQuizRateTextColor/getQuizRateBarColorに集約
+- [x] **モバイルメニューのスライドインアニメーション追加** | UX/UI | Header.tsxのモバイルドロワーにanimate-menu-inを追加
+- [x] **汎用Skeletonコンポーネントの作成** | コード品質 | Skeleton/SkeletonCardコンポーネントで統一
 - [x] **WeakLessonsの見出しに件数を表示** | UX/UI | 「復習が必要なレッスン（N件）」形式で全体把握を容易に
 - [x] **KeyboardShortcutsModalの閉じるボタンにaria-labelを追加** | アクセシビリティ | 「このモーダルを閉じる」と説明的なラベルを付与
 - [x] **LearningCalendarのデータ不在時に促進メッセージを表示** | UX/UI | totalActiveDays===0のとき「学習を始めるとここに記録されます」メッセージを表示
