@@ -141,7 +141,10 @@ export default function DashboardClient({ chapterProgressInfos, allSlugs, lesson
       {/* Recently Completed */}
       {recentCompleted.length > 0 && (
         <div className="bg-white rounded-xl border border-gray-200 p-6">
-          <h2 className="font-bold text-lg mb-4">最近完了したレッスン</h2>
+          <h2 className="font-bold text-lg mb-4">
+            最近完了したレッスン
+            <span className="ml-2 text-sm font-normal text-gray-400">（直近{recentCompleted.length}件）</span>
+          </h2>
           <div className="space-y-2">
             {recentCompleted.map((slug) => (
               <Link
