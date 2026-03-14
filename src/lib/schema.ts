@@ -47,6 +47,13 @@ export function lessonSchema(lesson: Lesson) {
     learningResourceType: 'lesson',
     educationalLevel: lesson.difficulty,
     timeRequired: `PT${lesson.duration}M`,
+    datePublished: '2025-01-01',
+    dateModified: new Date().toISOString().split('T')[0],
+    author: {
+      '@type': 'Organization',
+      name: 'AI Learning',
+      url: BASE_URL,
+    },
     isPartOf: {
       '@type': 'Course',
       name: 'AI Learning — 生成AIを体系的に学ぶ',
