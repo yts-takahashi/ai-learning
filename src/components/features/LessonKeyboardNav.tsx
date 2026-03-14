@@ -2,6 +2,7 @@
 
 import { useEffect } from 'react';
 import { useRouter } from 'next/navigation';
+import { useSwipe } from '@/hooks/useSwipe';
 
 interface LessonKeyboardNavProps {
   prevSlug: string | null;
@@ -10,6 +11,20 @@ interface LessonKeyboardNavProps {
 
 export default function LessonKeyboardNav({ prevSlug, nextSlug }: LessonKeyboardNavProps) {
   const router = useRouter();
+  const { onTouchStart, onTouchEnd } = useSwipe(
+    nextSlug ? () => router.push(`/lessons/${nextSlug}`) : undefined,
+    prevSlug ? () => router.push(`/lessons/${prevSlug}`) : undefined,
+  );
+
+  useEffect(() => {
+    const el = document.body;
+    el.addEventListener('touchstart', onTouchStart);
+    el.addEventListener('touchend', onTouchEnd);
+    return () => {
+      el.removeEventListener('touchstart', onTouchStart);
+      el.removeEventListener('touchend', onTouchEnd);
+    };
+  }, [onTouchStart, onTouchEnd]);
 
   useEffect(() => {
     function handleKeyDown(e: KeyboardEvent) {
