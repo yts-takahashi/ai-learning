@@ -4,6 +4,8 @@ import Link from 'next/link';
 import Badge from '@/components/ui/Badge';
 import { Lesson } from '@/lib/types';
 import { useProgress } from '@/hooks/useProgress';
+import { useMemo } from 'react';
+import { getQuizHistory } from '@/lib/quizHistory';
 
 interface LessonCardProps {
   lesson: Lesson;
@@ -18,6 +20,15 @@ export default function LessonCard({ lesson, allSlugsInOrder }: LessonCardProps)
     !completed &&
     !!allSlugsInOrder &&
     allSlugsInOrder.findIndex((s) => !completedSlugs.has(s)) === allSlugsInOrder.indexOf(lesson.slug);
+
+  const bestQuizRate = useMemo(() => {
+    if (!lesson.hasQuiz) return null;
+    const history = getQuizHistory();
+    const attempts = history[lesson.slug];
+    if (!attempts?.length) return null;
+    const best = attempts.reduce((max, a) => (a.score > max.score ? a : max), attempts[0]);
+    return Math.round((best.score / best.total) * 100);
+  }, [lesson.slug, lesson.hasQuiz]);
 
   return (
     <Link
@@ -65,7 +76,15 @@ export default function LessonCard({ lesson, allSlugsInOrder }: LessonCardProps)
           <span>{lesson.duration} 分</span>
           <Badge difficulty={lesson.difficulty} />
           {lesson.hasHandsOn && <span className="text-green-600">ハンズオン</span>}
-          {lesson.hasQuiz && <span className="text-purple-600">クイズ</span>}
+          {lesson.hasQuiz && (
+            bestQuizRate !== null ? (
+              <span className={`font-semibold ${bestQuizRate === 100 ? 'text-amber-500' : 'text-purple-600'}`}>
+                {bestQuizRate === 100 ? '★' : ''}クイズ{bestQuizRate}%
+              </span>
+            ) : (
+              <span className="text-purple-600">クイズ</span>
+            )
+          )}
         </div>
       </div>
 
