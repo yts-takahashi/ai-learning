@@ -56,6 +56,17 @@ export default function DashboardClient({ chapterProgressInfos, allSlugs, lesson
 
   return (
     <div className="space-y-8">
+      {/* All Lessons Completed Banner */}
+      {totalCompleted >= allSlugs.length && allSlugs.length > 0 && (
+        <div className="bg-gradient-to-br from-green-500 to-emerald-600 rounded-xl p-6 text-white text-center">
+          <p className="text-3xl mb-2">🎉</p>
+          <p className="text-xl font-bold mb-1">全レッスン完走おめでとうございます！</p>
+          <p className="text-sm text-green-100">
+            {TOTAL_LESSONS}本のレッスンをすべて修了しました。学んだことを実践で活かしていきましょう。
+          </p>
+        </div>
+      )}
+
       {/* Next Lesson Recommendation */}
       {nextLesson && totalCompleted < allSlugs.length && (
         <Link
