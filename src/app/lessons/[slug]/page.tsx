@@ -153,8 +153,19 @@ export default async function LessonPage({ params }: LessonPageProps) {
         <LessonComplete slug={slug} />
       </div>
 
+      {/* Keyboard Shortcut Hint */}
+      {(prev || next) && (
+        <p className="text-center text-xs text-gray-400 mt-6">
+          <kbd className="px-1.5 py-0.5 bg-gray-100 border border-gray-300 rounded text-gray-500 font-mono">k</kbd>
+          {' '}前のレッスン
+          <span className="mx-3">·</span>
+          <kbd className="px-1.5 py-0.5 bg-gray-100 border border-gray-300 rounded text-gray-500 font-mono">j</kbd>
+          {' '}次のレッスン
+        </p>
+      )}
+
       {/* Navigation */}
-      <div className="flex justify-between gap-4 mt-8">
+      <div className="flex justify-between gap-4 mt-4">
         {prev ? (
           <Link
             href={`/lessons/${prev.slug}`}
