@@ -9,6 +9,7 @@ interface LessonContentProps {
   articleContent: React.ReactNode;
   handsOnContent: React.ReactNode | null;
   quizQuestions: QuizQuestion[];
+  nextSlug?: string | null;
 }
 
 type Tab = 'article' | 'handson' | 'quiz';
@@ -18,6 +19,7 @@ export default function LessonContent({
   articleContent,
   handsOnContent,
   quizQuestions,
+  nextSlug,
 }: LessonContentProps) {
   const [activeTab, setActiveTab] = useState<Tab>('article');
 
@@ -98,7 +100,7 @@ export default function LessonContent({
           role="tabpanel"
           aria-labelledby="tab-quiz"
         >
-          <Quiz questions={quizQuestions} />
+          <Quiz questions={quizQuestions} nextSlug={nextSlug} />
         </div>
       )}
     </div>

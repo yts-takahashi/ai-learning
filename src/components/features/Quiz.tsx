@@ -1,10 +1,12 @@
 'use client';
 
 import { useState } from 'react';
+import Link from 'next/link';
 import { QuizQuestion } from '@/lib/types';
 
 interface QuizProps {
   questions: QuizQuestion[];
+  nextSlug?: string | null;
 }
 
 interface QuestionState {
@@ -12,7 +14,7 @@ interface QuestionState {
   revealed: boolean;
 }
 
-export default function Quiz({ questions }: QuizProps) {
+export default function Quiz({ questions, nextSlug }: QuizProps) {
   const [states, setStates] = useState<QuestionState[]>(
     questions.map(() => ({ selected: null, revealed: false })),
   );
@@ -146,13 +148,24 @@ export default function Quiz({ questions }: QuizProps) {
           <p className="text-2xl font-bold text-purple-700 mb-2">
             {score} / {questions.length} 問正解
           </p>
-          <p className="text-gray-600">
+          <p className="text-gray-600 mb-4">
             {score === questions.length
               ? '全問正解！素晴らしい理解力です。'
               : score >= questions.length * 0.7
                 ? 'よくできました！もう一度間違えた問題を確認してみましょう。'
                 : 'もう一度記事を読み返してみましょう。'}
           </p>
+          {score === questions.length && nextSlug && (
+            <Link
+              href={`/lessons/${nextSlug}`}
+              className="inline-flex items-center gap-2 bg-purple-600 text-white px-6 py-2.5 rounded-lg font-semibold hover:bg-purple-700 transition-colors text-sm"
+            >
+              次のレッスンへ
+              <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+              </svg>
+            </Link>
+          )}
         </div>
       )}
     </div>

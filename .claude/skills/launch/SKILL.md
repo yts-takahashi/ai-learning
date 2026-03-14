@@ -90,3 +90,15 @@ PRD の全実装タスクはすでに完了しています。
 PRD に未完了タスクが残っている場合はこのフェーズをスキップし、
 次回 `launch` または `ship` 時に再挑戦する。
 
+## NOTIFY（Slack通知）
+
+すべてのフェーズ完了後、以下のコマンドでSlackに通知する：
+
+```bash
+source /Users/shotakahashi/git/ai-learning/.env.local 2>/dev/null || true
+export $(grep -v '^#' /Users/shotakahashi/git/ai-learning/.env.local | xargs) 2>/dev/null || true
+curl -s -X POST "$SLACK_WEBHOOK_URL" \
+  -H "Content-Type: application/json" \
+  -d '{"text": "✅ launch 完了 — 実装・改善・記録まですべて終わりました"}'
+```
+
