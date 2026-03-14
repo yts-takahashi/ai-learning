@@ -1,13 +1,9 @@
 import type { Metadata } from 'next';
+import Link from 'next/link';
 import './globals.css';
 import HeaderWrapper from '@/components/layout/HeaderWrapper';
 import { websiteSchema } from '@/lib/schema';
-import dynamic from 'next/dynamic';
-
-const KeyboardShortcutsModal = dynamic(
-  () => import('@/components/ui/KeyboardShortcutsModal'),
-  { ssr: false },
-);
+import KeyboardShortcutsModalLoader from '@/components/ui/KeyboardShortcutsModalLoader';
 
 export const metadata: Metadata = {
   title: 'AI Learning — 生成AIを体系的に学ぶ',
@@ -50,13 +46,26 @@ export default function RootLayout({
           メインコンテンツへスキップ
         </a>
         <HeaderWrapper />
-        <KeyboardShortcutsModal />
+        <KeyboardShortcutsModalLoader />
         <main id="main-content">{children}</main>
         <footer className="border-t border-gray-200 bg-white mt-16">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-            <p className="text-center text-gray-500 text-sm">
-              © 2026 AI Learning. 生成AIを体系的に学ぶプラットフォーム
-            </p>
+            <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
+              <p className="text-gray-500 text-sm">
+                © 2026 AI Learning. 生成AIを体系的に学ぶプラットフォーム
+              </p>
+              <nav aria-label="フッターナビゲーション" className="flex items-center gap-6">
+                <Link href="/" className="text-sm text-gray-500 hover:text-blue-600 transition-colors">
+                  ホーム
+                </Link>
+                <Link href="/lessons" className="text-sm text-gray-500 hover:text-blue-600 transition-colors">
+                  レッスン一覧
+                </Link>
+                <Link href="/dashboard" className="text-sm text-gray-500 hover:text-blue-600 transition-colors">
+                  進捗ダッシュボード
+                </Link>
+              </nav>
+            </div>
           </div>
         </footer>
       </body>
