@@ -51,7 +51,7 @@ export default function DashboardClient({ chapterProgressInfos, allSlugs, lesson
   const nextLesson = orderedLessons.find((l) => !completedSlugs.has(l.slug)) ?? null;
   const recentCompleted = Array.from(completedSlugs)
     .filter((s) => allSlugs.includes(s))
-    .slice(-5)
+    .slice(-10)
     .reverse();
 
   return (
