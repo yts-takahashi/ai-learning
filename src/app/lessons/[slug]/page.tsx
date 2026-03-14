@@ -169,7 +169,7 @@ export default async function LessonPage({ params }: LessonPageProps) {
         />
 
         {/* Complete Button */}
-        <LessonComplete slug={slug} />
+        <LessonComplete slug={slug} duration={lesson.duration} />
       </div>
 
       {/* Keyboard Shortcut Hint */}

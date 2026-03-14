@@ -1,13 +1,17 @@
 'use client';
 
 import { useProgress } from '@/hooks/useProgress';
+import { getSessionDurationBySlug } from '@/lib/sessionHistory';
 
 interface LessonCompleteProps {
   slug: string;
+  duration?: number;
 }
 
-export default function LessonComplete({ slug }: LessonCompleteProps) {
+export default function LessonComplete({ slug, duration }: LessonCompleteProps) {
   const { isCompleted, toggle, isLoaded } = useProgress();
+  const actualSeconds = getSessionDurationBySlug(slug);
+  const actualMinutes = actualSeconds > 0 ? Math.max(1, Math.round(actualSeconds / 60)) : null;
 
   if (!isLoaded) {
     return (
@@ -20,7 +24,14 @@ export default function LessonComplete({ slug }: LessonCompleteProps) {
   const completed = isCompleted(slug);
 
   return (
-    <div className="flex justify-center mt-12 pt-8 border-t border-gray-200">
+    <div className="mt-12 pt-8 border-t border-gray-200">
+      {actualMinutes && duration && (
+        <div className="flex justify-center gap-6 text-sm text-gray-500 mb-4">
+          <span>推奨: <strong className="text-gray-700">{duration}分</strong></span>
+          <span>実績: <strong className={actualMinutes <= duration ? 'text-green-600' : 'text-blue-600'}>{actualMinutes}分</strong></span>
+        </div>
+      )}
+      <div className="flex justify-center">
       <button
         onClick={() => toggle(slug)}
         className={`flex items-center gap-3 px-8 py-3 rounded-lg font-semibold transition-all ${
@@ -55,6 +66,7 @@ export default function LessonComplete({ slug }: LessonCompleteProps) {
           </>
         )}
       </button>
+      </div>
     </div>
   );
 }

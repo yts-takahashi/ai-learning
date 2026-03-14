@@ -23,6 +23,12 @@ export function saveSession(slug: string, durationSeconds: number): void {
   localStorage.setItem(STORAGE_KEY, JSON.stringify(sessions.slice(-200)));
 }
 
+export function getSessionDurationBySlug(slug: string): number {
+  const sessions = getSessions().filter((s) => s.slug === slug);
+  if (sessions.length === 0) return 0;
+  return Math.round(sessions.reduce((sum, s) => sum + s.duration, 0) / sessions.length);
+}
+
 export function getTotalStats(sessions: LessonSession[]): {
   totalMinutes: number;
   sessionCount: number;
