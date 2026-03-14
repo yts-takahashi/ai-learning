@@ -8,6 +8,7 @@ import LessonsProgress from '@/components/features/LessonsProgress';
 import ChapterFilter from '@/components/features/ChapterFilter';
 import ChapterProgress from '@/components/features/ChapterProgress';
 import ChapterRoadmap from '@/components/features/ChapterRoadmap';
+import DifficultyFilter from '@/components/features/DifficultyFilter';
 
 export const metadata: Metadata = {
   title: 'レッスン一覧 — AI Learning',
@@ -27,19 +28,27 @@ export const metadata: Metadata = {
 };
 
 interface LessonsPageProps {
-  searchParams: Promise<{ chapter?: string }>;
+  searchParams: Promise<{ chapter?: string; difficulty?: string }>;
 }
 
 export default async function LessonsPage({ searchParams }: LessonsPageProps) {
   const params = await searchParams;
   const chapterNum = params.chapter ? parseInt(params.chapter, 10) : null;
+  const difficulty = params.difficulty ?? null;
 
   const chapters = getChapters();
   const allLessons = getAllLessons();
   const courseSchema = educationalCourseSchema(allLessons);
 
-  const filteredChapters =
-    chapterNum !== null ? chapters.filter((ch) => ch.number === chapterNum) : chapters;
+  const filteredChapters = chapters
+    .filter((ch) => chapterNum === null || ch.number === chapterNum)
+    .map((ch) => ({
+      ...ch,
+      lessons: difficulty
+        ? ch.lessons.filter((l) => l.difficulty === difficulty)
+        : ch.lessons,
+    }))
+    .filter((ch) => !difficulty || ch.lessons.length > 0);
 
   return (
     <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
@@ -58,6 +67,9 @@ export default async function LessonsPage({ searchParams }: LessonsPageProps) {
 
       <Suspense>
         <ChapterFilter />
+      </Suspense>
+      <Suspense>
+        <DifficultyFilter />
       </Suspense>
 
       <div className="space-y-10">
