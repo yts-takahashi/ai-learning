@@ -2,6 +2,12 @@ import type { Metadata } from 'next';
 import './globals.css';
 import HeaderWrapper from '@/components/layout/HeaderWrapper';
 import { websiteSchema } from '@/lib/schema';
+import dynamic from 'next/dynamic';
+
+const KeyboardShortcutsModal = dynamic(
+  () => import('@/components/ui/KeyboardShortcutsModal'),
+  { ssr: false },
+);
 
 export const metadata: Metadata = {
   title: 'AI Learning — 生成AIを体系的に学ぶ',
@@ -44,6 +50,7 @@ export default function RootLayout({
           メインコンテンツへスキップ
         </a>
         <HeaderWrapper />
+        <KeyboardShortcutsModal />
         <main id="main-content">{children}</main>
         <footer className="border-t border-gray-200 bg-white mt-16">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
