@@ -194,20 +194,6 @@ cd backend && cargo check && cargo clippy
 
 ---
 
-## STEP 8: NOTIFY（Slack通知）
-
-CHRONICLE 完了後、以下のコマンドでSlackに通知する：
-
-```bash
-source /Users/shotakahashi/git/ai-learning/.env.local 2>/dev/null || true
-export $(grep -v '^#' /Users/shotakahashi/git/ai-learning/.env.local | xargs) 2>/dev/null || true
-curl -s -X POST "$SLACK_WEBHOOK_URL" \
-  -H "Content-Type: application/json" \
-  -d '{"text": "✅ develop 完了 — 実装・コミット・記録まですべて終わりました"}'
-```
-
----
-
 ## 判断基準（迷ったとき）
 
 | 状況 | 判断 |
