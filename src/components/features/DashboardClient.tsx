@@ -8,6 +8,7 @@ import LearningTimeStats from '@/components/features/LearningTimeStats';
 import StreakBadge from '@/components/features/StreakBadge';
 import QuizHistoryDetail from '@/components/features/QuizHistoryDetail';
 import LearningInsights from '@/components/features/LearningInsights';
+import WeakLessons from '@/components/features/WeakLessons';
 import { CHAPTERS, TOTAL_LESSONS } from '@/lib/constants';
 
 interface ChapterProgressInfo {
@@ -139,6 +140,7 @@ export default function DashboardClient({ chapterProgressInfos, allSlugs, lesson
       <StreakBadge />
       <LearningTimeStats />
       <LearningInsights chapters={chapterProgressInfos} />
+      <WeakLessons lessonTitleMap={lessonTitleMap} />
       <QuizStats />
       <QuizHistoryDetail lessonTitleMap={lessonTitleMap} />
 
