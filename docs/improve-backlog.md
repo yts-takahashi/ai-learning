@@ -6,9 +6,12 @@
 
 
 
-
 ## 実装済み（このセッション）
 
+- [x] **レッスン一覧のフィルター後に件数を表示** | UX/UI | 絞り込み結果をaria-live付きで表示
+- [x] **LessonContentのタブにaria-disabledを追加** | アクセシビリティ | 無効タブのa11y改善
+- [x] **QuizStatsのスケルトンローディング** | UX/UI | ロード中スケルトン表示を追加
+- [x] **ProgressBarのaria-valuemax=0エッジケース修正** | アクセシビリティ | max=0時は1に設定
 - [x] **LearningInsightsのprogressbar aria属性追加とスケルトン** | アクセシビリティ+UX | role="progressbar"とanimate-pulseスケルトンを追加
 - [x] **全レッスン完走時のダッシュボードバナー** | 学習体験 | 完走お祝いバナーをDashboardClientに表示
 - [x] **HomeProgressBannerの全完了時お祝いバナー** | 学習体験 | 全完走時に緑のお祝いバナーを表示
