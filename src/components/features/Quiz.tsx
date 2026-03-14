@@ -32,11 +32,18 @@ interface QuestionState {
 }
 
 export default function Quiz({ questions, nextSlug, slug, onGoToArticle }: QuizProps) {
-  const shuffled = useMemo(() => questions.map(shuffleOptions), [questions]);
+  const [retryCount, setRetryCount] = useState(0);
+  const shuffled = useMemo(() => questions.map(shuffleOptions), [questions, retryCount]); // eslint-disable-line react-hooks/exhaustive-deps
   const [states, setStates] = useState<QuestionState[]>(
     questions.map(() => ({ selected: null, revealed: false })),
   );
   const [showScore, setShowScore] = useState(false);
+
+  function retry() {
+    setRetryCount((c) => c + 1);
+    setStates(questions.map(() => ({ selected: null, revealed: false })));
+    setShowScore(false);
+  }
 
   function selectOption(qIndex: number, optIndex: number) {
     if (states[qIndex].revealed) return;
@@ -187,17 +194,28 @@ export default function Quiz({ questions, nextSlug, slug, onGoToArticle }: QuizP
                 ? 'よくできました！もう一度間違えた問題を確認してみましょう。'
                 : 'もう一度記事を読み返してみましょう。'}
           </p>
-          {score === questions.length && nextSlug && (
-            <Link
-              href={`/lessons/${nextSlug}`}
-              className="inline-flex items-center gap-2 bg-purple-600 text-white px-6 py-2.5 rounded-lg font-semibold hover:bg-purple-700 transition-colors text-sm"
+          <div className="flex flex-wrap justify-center gap-3">
+            <button
+              onClick={retry}
+              className="inline-flex items-center gap-2 bg-white border border-purple-300 text-purple-700 px-5 py-2.5 rounded-lg font-semibold hover:bg-purple-50 transition-colors text-sm"
             >
-              次のレッスンへ
               <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
               </svg>
-            </Link>
-          )}
+              もう一度挑戦する
+            </button>
+            {score === questions.length && nextSlug && (
+              <Link
+                href={`/lessons/${nextSlug}`}
+                className="inline-flex items-center gap-2 bg-purple-600 text-white px-6 py-2.5 rounded-lg font-semibold hover:bg-purple-700 transition-colors text-sm"
+              >
+                次のレッスンへ
+                <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                </svg>
+              </Link>
+            )}
+          </div>
         </div>
       )}
     </div>
