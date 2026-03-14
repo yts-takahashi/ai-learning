@@ -5,12 +5,30 @@ import { getQuizHistory, getOverallStats } from '@/lib/quizHistory';
 
 export default function QuizStats() {
   const [stats, setStats] = useState<ReturnType<typeof getOverallStats> | null>(null);
+  const [loaded, setLoaded] = useState(false);
 
   useEffect(() => {
     const history = getQuizHistory();
     const s = getOverallStats(history);
     if (s.totalAttempts > 0) setStats(s);
+    setLoaded(true);
   }, []);
+
+  if (!loaded) {
+    return (
+      <div className="bg-white rounded-xl border border-gray-200 p-6 animate-pulse">
+        <div className="h-5 w-24 bg-gray-200 rounded mb-4" />
+        <div className="grid grid-cols-3 gap-4">
+          {[1, 2, 3].map((i) => (
+            <div key={i} className="text-center">
+              <div className="h-8 w-16 bg-gray-200 rounded mx-auto mb-1" />
+              <div className="h-3 w-14 bg-gray-100 rounded mx-auto" />
+            </div>
+          ))}
+        </div>
+      </div>
+    );
+  }
 
   if (!stats) return null;
 
