@@ -4,6 +4,19 @@ import DashboardClient from '@/components/features/DashboardClient';
 
 export const metadata = {
   title: '進捗ダッシュボード — AI Learning',
+  description: '生成AI学習の進捗状況を確認できるダッシュボード。チャプター別の完了状況を把握しましょう。',
+  openGraph: {
+    title: '進捗ダッシュボード — AI Learning',
+    description: '生成AI学習の進捗状況を確認できるダッシュボード。チャプター別の完了状況を把握しましょう。',
+    type: 'website' as const,
+    locale: 'ja_JP',
+    siteName: 'AI Learning',
+  },
+  twitter: {
+    card: 'summary' as const,
+    title: '進捗ダッシュボード — AI Learning',
+    description: '生成AI学習の進捗状況を確認できるダッシュボード。チャプター別の完了状況を把握しましょう。',
+  },
 };
 
 export default function DashboardPage() {
