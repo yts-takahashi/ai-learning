@@ -18,6 +18,28 @@ export default function HomeProgressBanner() {
   if (completedCount === null) return null;
 
   const pct = Math.round((completedCount / TOTAL_LESSONS) * 100);
+  const allCompleted = completedCount >= TOTAL_LESSONS;
+
+  if (allCompleted) {
+    return (
+      <section className="bg-green-50 border-b border-green-200" aria-label="完走バナー">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+          <div className="flex items-center gap-3">
+            <span className="text-xl" aria-hidden="true">🎉</span>
+            <p className="text-sm font-semibold text-green-800 flex-1">
+              全 {TOTAL_LESSONS} レッスン完走おめでとうございます！
+            </p>
+            <Link
+              href="/dashboard"
+              className="flex-shrink-0 inline-flex items-center gap-2 bg-green-600 text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-green-700 transition-colors"
+            >
+              進捗を見る
+            </Link>
+          </div>
+        </div>
+      </section>
+    );
+  }
 
   return (
     <section className="bg-blue-50 border-b border-blue-100">
