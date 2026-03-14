@@ -1,8 +1,22 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useMemo } from 'react';
 import Link from 'next/link';
 import { QuizQuestion } from '@/lib/types';
+
+function shuffleOptions(question: QuizQuestion): QuizQuestion {
+  const indices = question.options.map((_, i) => i);
+  for (let i = indices.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [indices[i], indices[j]] = [indices[j], indices[i]];
+  }
+  const newCorrectIndex = indices.indexOf(question.correctIndex);
+  return {
+    ...question,
+    options: indices.map((i) => question.options[i]),
+    correctIndex: newCorrectIndex,
+  };
+}
 
 interface QuizProps {
   questions: QuizQuestion[];
@@ -15,6 +29,7 @@ interface QuestionState {
 }
 
 export default function Quiz({ questions, nextSlug }: QuizProps) {
+  const shuffled = useMemo(() => questions.map(shuffleOptions), [questions]);
   const [states, setStates] = useState<QuestionState[]>(
     questions.map(() => ({ selected: null, revealed: false })),
   );
@@ -40,7 +55,7 @@ export default function Quiz({ questions, nextSlug }: QuizProps) {
 
   const answeredAll = states.every((s) => s.revealed);
   const score = states.filter(
-    (s, i) => s.revealed && s.selected === questions[i].correctIndex,
+    (s, i) => s.revealed && s.selected === shuffled[i].correctIndex,
   ).length;
 
   return (
@@ -57,7 +72,7 @@ export default function Quiz({ questions, nextSlug }: QuizProps) {
         <span className="font-semibold text-lg">クイズ — 理解度チェック</span>
       </div>
 
-      {questions.map((q, qIdx) => {
+      {shuffled.map((q, qIdx) => {
         const state = states[qIdx];
         const isCorrect = state.selected === q.correctIndex;
         const questionId = `quiz-question-${qIdx}`;
