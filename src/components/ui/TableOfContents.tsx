@@ -1,3 +1,6 @@
+'use client';
+
+import { useEffect, useState } from 'react';
 import type { Heading } from '@/lib/parseLesson';
 
 interface TableOfContentsProps {
@@ -5,6 +8,31 @@ interface TableOfContentsProps {
 }
 
 export default function TableOfContents({ headings }: TableOfContentsProps) {
+  const [activeId, setActiveId] = useState<string>('');
+
+  useEffect(() => {
+    if (headings.length < 3) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          if (entry.isIntersecting) {
+            setActiveId(entry.target.id);
+            break;
+          }
+        }
+      },
+      { rootMargin: '0px 0px -70% 0px', threshold: 0 },
+    );
+
+    headings.forEach((h) => {
+      const el = document.getElementById(h.id);
+      if (el) observer.observe(el);
+    });
+
+    return () => observer.disconnect();
+  }, [headings]);
+
   if (headings.length < 3) return null;
 
   return (
@@ -18,7 +46,11 @@ export default function TableOfContents({ headings }: TableOfContentsProps) {
           <li key={h.id} className={h.level === 3 ? 'pl-4' : ''}>
             <a
               href={`#${h.id}`}
-              className="text-blue-600 hover:text-blue-800 hover:underline transition-colors leading-snug"
+              className={`hover:underline transition-colors leading-snug ${
+                activeId === h.id
+                  ? 'text-blue-700 font-semibold'
+                  : 'text-blue-600 hover:text-blue-800'
+              }`}
             >
               {h.text}
             </a>
