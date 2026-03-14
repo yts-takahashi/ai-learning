@@ -36,7 +36,7 @@ export default function ProgressBar({
         role="progressbar"
         aria-valuenow={value}
         aria-valuemin={0}
-        aria-valuemax={max}
+        aria-valuemax={Math.max(max, 1)}
         aria-label={`${value} / ${max} 完了`}
       >
         <div
