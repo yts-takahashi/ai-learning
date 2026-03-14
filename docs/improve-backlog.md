@@ -4,16 +4,15 @@
 
 ## 未実装
 
-- [ ] **スキップリンク（Skip to main content）** | アクセシビリティ | Impact:High | Effort:Low | layoutにスキップリンクを追加しキーボードユーザーのアクセシビリティを向上
-- [ ] **ホームページのWebSiteスキーマ** | SEO | Impact:High | Effort:Low | ホームページにWebSite/Organization LD+JSONを追加
-- [ ] **チャプター推定総学習時間の表示** | UX/UI | Impact:Medium | Effort:Low | レッスン一覧ページの各チャプターヘッダーに推定総学習時間を表示
-- [ ] **弱点分析（クイズ不正解問題一覧）** | 学習体験 | Impact:High | Effort:Medium | ダッシュボードに正答率が低いレッスンをリストアップして復習を促す
-- [ ] **ホームページに進捗サマリーバナー** | UX/UI | Impact:High | Effort:Medium | 既に学習済みユーザー向けに進捗とcontinueリンクを表示するclientコンポーネント
-- [ ] **クイズ低正答率レッスン復習推薦** | 学習体験 | Impact:High | Effort:Medium | ダッシュボードに正答率60%未満のレッスン一覧と復習ボタンを表示
-- [ ] **印刷スタイル** | UX/UI | Impact:Medium | Effort:Low | globals.cssに@media printを追加しレッスン記事を綺麗に印刷できるようにする
 
 ## 実装済み（このセッション）
 
+- [x] **弱点分析・復習推薦（クイズ低正答率レッスン）** | 学習体験 | WeakLessonsコンポーネントを作成しダッシュボードに追加
+- [x] **ホームページに進捗サマリーバナー** | UX/UI | HomeProgressBannerコンポーネントをホームページに追加
+- [x] **印刷スタイル** | UX/UI | globals.cssに@media printを追加
+- [x] **スキップリンク（Skip to main content）** | アクセシビリティ | layout.tsxに既実装済み
+- [x] **ホームページのWebSiteスキーマ** | SEO | layout.tsxのwebsiteSchema()で既実装済み
+- [x] **チャプター推定総学習時間の表示** | UX/UI | レッスン一覧チャプターヘッダーに推定時間を表示
 - [x] **レッスンカードにクイズ正答率バッジ** | UX/UI | 挑戦済みのレッスンカードに最高正答率を表示（100%時は★マーク）
 - [x] **ストリーク節目メッセージ** | 学習体験 | 3/7/30日の節目でStreakBadgeに達成メッセージを追加
 - [x] **チャプター完了バッジ** | 学習体験 | チャプター内全レッスン完了時に達成バッジを表示
