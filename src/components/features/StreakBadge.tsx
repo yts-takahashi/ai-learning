@@ -15,9 +15,22 @@ export default function StreakBadge() {
 
   const flame = info.current >= 7 ? '🔥' : info.current >= 3 ? '✨' : '📅';
 
+  function getMilestoneMessage(streak: number): string | null {
+    if (streak === 30) return '30日連続達成！驚異的な継続力です！';
+    if (streak === 7) return '1週間連続達成！習慣化できていますね！';
+    if (streak === 3) return '3日連続達成！いいペースです！';
+    return null;
+  }
+  const milestoneMessage = getMilestoneMessage(info.current);
+
   return (
     <div className="bg-white rounded-xl border border-gray-200 p-6">
       <h2 className="font-bold text-lg mb-4">学習ストリーク</h2>
+      {milestoneMessage && (
+        <div className="mb-4 px-3 py-2 bg-orange-50 border border-orange-200 rounded-lg text-xs font-semibold text-orange-700">
+          {milestoneMessage}
+        </div>
+      )}
       <div className="flex items-center gap-6">
         <div className="text-center">
           <div className="text-4xl mb-1">{flame}</div>
