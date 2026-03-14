@@ -50,6 +50,9 @@ export default async function LessonsPage({ searchParams }: LessonsPageProps) {
     }))
     .filter((ch) => !difficulty || ch.lessons.length > 0);
 
+  const isFiltered = chapterNum !== null || difficulty !== null;
+  const filteredLessonCount = filteredChapters.reduce((sum, ch) => sum + ch.lessons.length, 0);
+
   return (
     <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
       <script
@@ -71,6 +74,12 @@ export default async function LessonsPage({ searchParams }: LessonsPageProps) {
       <Suspense>
         <DifficultyFilter />
       </Suspense>
+
+      {isFiltered && (
+        <p className="text-sm text-gray-500 mb-4" aria-live="polite">
+          絞り込み結果: <span className="font-semibold text-gray-700">{filteredLessonCount}</span> 件
+        </p>
+      )}
 
       <div className="space-y-10">
         {filteredChapters.map((chapter) => {
