@@ -4,6 +4,11 @@
 
 ## 未実装
 
+- [ ] **次に学ぶレッスン推奨** | 学習体験 | Impact:High | Effort:Low | ダッシュボード上部に最初の未完了レッスンを「次に学ぶレッスン」カードとして表示
+- [ ] **SearchModal dynamic import最適化** | パフォーマンス | Impact:Medium | Effort:Low | HeaderWrapperでSearchModalをdynamic()でラップし初期バンドルから分離
+- [ ] **レッスン内目次（Table of Contents）** | UX/UI | Impact:High | Effort:Medium | MDX記事の見出し(h2/h3)から目次を自動生成し記事上部に表示
+- [ ] **クイズ正答率統計** | 学習体験 | Impact:Medium | Effort:Medium | localStorageにクイズ履歴を蓄積しダッシュボードに正答率を表示
+
 
 ## 実装済み（このセッション）
 
