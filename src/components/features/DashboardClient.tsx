@@ -80,7 +80,20 @@ export default function DashboardClient({ chapterProgressInfos, allSlugs, lesson
 
       {/* Overall Progress */}
       <div className="bg-white rounded-xl border border-gray-200 p-6">
-        <h2 className="font-bold text-lg mb-4">全体の進捗</h2>
+        <h2 className="font-bold text-lg mb-1">全体の進捗</h2>
+        {totalCompleted > 0 && (
+          <p className="text-sm text-gray-500 mb-4">
+            {totalCompleted === TOTAL_LESSONS
+              ? '全レッスン完了！素晴らしい学習力です。'
+              : totalCompleted / TOTAL_LESSONS >= 0.75
+                ? 'もう少しで完走！最後まで頑張りましょう。'
+                : totalCompleted / TOTAL_LESSONS >= 0.5
+                  ? '折り返し地点を過ぎました！この調子で進めましょう。'
+                  : totalCompleted / TOTAL_LESSONS >= 0.25
+                    ? 'よいペースです！継続することが大切です。'
+                    : 'よいスタートです！コツコツ積み上げていきましょう。'}
+          </p>
+        )}
         <ProgressBar value={totalCompleted} max={TOTAL_LESSONS} showLabel size="lg" />
       </div>
 
