@@ -8,6 +8,7 @@ import { CHAPTERS, DIFFICULTY_LABELS } from '@/lib/constants';
 import Badge from '@/components/ui/Badge';
 import LessonContent from '@/components/features/LessonContent';
 import LessonComplete from '@/components/features/LessonComplete';
+import LessonKeyboardNav from '@/components/features/LessonKeyboardNav';
 import { mdxComponents } from '@/components/mdx/mdxComponents';
 
 interface LessonPageProps {
@@ -65,6 +66,7 @@ export default async function LessonPage({ params }: LessonPageProps) {
 
   return (
     <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+      <LessonKeyboardNav prevSlug={prev?.slug ?? null} nextSlug={next?.slug ?? null} />
       {/* Breadcrumb */}
       <nav className="flex items-center gap-2 text-sm text-gray-500 mb-6">
         <Link href="/" className="hover:text-blue-600 transition-colors">
