@@ -3,6 +3,7 @@
 import { useProgress } from '@/hooks/useProgress';
 import { getSessions } from '@/lib/sessionHistory';
 import { getQuizHistory } from '@/lib/quizHistory';
+import { getQuizRateTextColor } from '@/lib/quizUtils';
 import { useMemo } from 'react';
 
 interface ChapterInfo {
@@ -74,12 +75,6 @@ export default function LearningInsights({ chapters }: LearningInsightsProps) {
     return 'bg-gray-300';
   }
 
-  function quizColor(rate: number) {
-    if (rate >= 80) return 'text-green-600';
-    if (rate >= 60) return 'text-yellow-600';
-    return 'text-red-500';
-  }
-
   return (
     <div className="bg-white rounded-xl border border-gray-200 p-6">
       <h2 className="font-bold text-lg mb-1">学習ペース分析</h2>
@@ -104,7 +99,7 @@ export default function LearningInsights({ chapters }: LearningInsightsProps) {
                   </span>
                 )}
                 {ch.avgQuizRate !== null && (
-                  <span className={`font-semibold ${quizColor(ch.avgQuizRate)}`}>
+                  <span className={`font-semibold ${getQuizRateTextColor(ch.avgQuizRate)}`}>
                     クイズ {ch.avgQuizRate}%
                   </span>
                 )}

@@ -6,6 +6,7 @@ import { Lesson } from '@/lib/types';
 import { useProgress } from '@/hooks/useProgress';
 import { useMemo } from 'react';
 import { getQuizHistory } from '@/lib/quizHistory';
+import { getQuizRateTextColor } from '@/lib/quizUtils';
 
 interface LessonCardProps {
   lesson: Lesson;
@@ -78,15 +79,7 @@ export default function LessonCard({ lesson, allSlugsInOrder }: LessonCardProps)
           {lesson.hasHandsOn && <span className="text-green-600">ハンズオン</span>}
           {lesson.hasQuiz && (
             bestQuizRate !== null ? (
-              <span className={`font-semibold ${
-                bestQuizRate === 100
-                  ? 'text-amber-500'
-                  : bestQuizRate >= 70
-                    ? 'text-green-600'
-                    : bestQuizRate >= 40
-                      ? 'text-yellow-600'
-                      : 'text-red-500'
-              }`}>
+              <span className={`font-semibold ${getQuizRateTextColor(bestQuizRate)}`}>
                 {bestQuizRate === 100 ? '★' : ''}クイズ{bestQuizRate}%
               </span>
             ) : (

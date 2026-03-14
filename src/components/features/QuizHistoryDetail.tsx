@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { getQuizHistory, getStatsByLesson, type LessonQuizStat } from '@/lib/quizHistory';
+import { getQuizRateTextColor, getQuizRateBarColor } from '@/lib/quizUtils';
 
 interface QuizHistoryDetailProps {
   lessonTitleMap: Record<string, string>;
@@ -68,9 +69,7 @@ export default function QuizHistoryDetail({ lessonTitleMap }: QuizHistoryDetailP
           >
             <div className="w-10 flex-shrink-0 text-center">
               <span
-                className={`text-sm font-bold ${
-                  s.bestRate >= 80 ? 'text-green-600' : s.bestRate >= 50 ? 'text-yellow-600' : 'text-red-500'
-                }`}
+                className={`text-sm font-bold ${getQuizRateTextColor(s.bestRate)}`}
               >
                 {s.bestRate}%
               </span>
@@ -86,9 +85,7 @@ export default function QuizHistoryDetail({ lessonTitleMap }: QuizHistoryDetailP
             <div className="w-16 flex-shrink-0">
               <div className="h-1.5 bg-gray-100 rounded-full overflow-hidden">
                 <div
-                  className={`h-full rounded-full ${
-                    s.bestRate >= 80 ? 'bg-green-500' : s.bestRate >= 50 ? 'bg-yellow-400' : 'bg-red-400'
-                  }`}
+                  className={`h-full rounded-full ${getQuizRateBarColor(s.bestRate)}`}
                   style={{ width: `${s.bestRate}%` }}
                 />
               </div>
