@@ -5,11 +5,28 @@ import { getStreakInfo, type StreakInfo } from '@/lib/streakTracker';
 
 export default function StreakBadge() {
   const [info, setInfo] = useState<StreakInfo | null>(null);
+  const [loaded, setLoaded] = useState(false);
 
   useEffect(() => {
     const s = getStreakInfo();
     if (s.best > 0) setInfo(s);
+    setLoaded(true);
   }, []);
+
+  if (!loaded) {
+    return (
+      <div className="bg-white rounded-xl border border-gray-200 p-6 animate-pulse">
+        <div className="h-5 w-32 bg-gray-200 rounded mb-4" />
+        <div className="flex items-center gap-6">
+          <div className="w-16 h-16 bg-gray-200 rounded-full" />
+          <div className="flex-1 space-y-3">
+            <div className="h-2 bg-gray-200 rounded-full" />
+            <div className="h-3 w-40 bg-gray-200 rounded" />
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   if (!info) return null;
 
@@ -50,8 +67,8 @@ export default function StreakBadge() {
               />
             </div>
           </div>
-          <p className={`text-xs font-medium ${info.studiedToday ? 'text-green-600' : 'text-gray-400'}`}>
-            {info.studiedToday ? '✓ 今日の学習済み' : '今日はまだ学習していません'}
+          <p className={`text-xs font-medium ${info.studiedToday ? 'text-green-600' : 'text-blue-500'}`}>
+            {info.studiedToday ? '✓ 今日の学習済み' : '今日の学習をはじめよう！'}
           </p>
         </div>
       </div>
