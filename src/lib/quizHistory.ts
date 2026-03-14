@@ -26,6 +26,30 @@ export function saveQuizAttempt(slug: string, score: number, total: number): voi
   localStorage.setItem(STORAGE_KEY, JSON.stringify(history));
 }
 
+export interface LessonQuizStat {
+  slug: string;
+  attempts: number;
+  bestScore: number;
+  total: number;
+  bestRate: number;
+  latestRate: number;
+}
+
+export function getStatsByLesson(history: QuizHistory): LessonQuizStat[] {
+  return Object.entries(history).map(([slug, attempts]) => {
+    const best = attempts.reduce((max, a) => (a.score > max.score ? a : max), attempts[0]);
+    const latest = attempts[attempts.length - 1];
+    return {
+      slug,
+      attempts: attempts.length,
+      bestScore: best.score,
+      total: best.total,
+      bestRate: Math.round((best.score / best.total) * 100),
+      latestRate: Math.round((latest.score / latest.total) * 100),
+    };
+  }).sort((a, b) => b.latestRate - a.latestRate);
+}
+
 export function getOverallStats(history: QuizHistory): {
   totalAttempts: number;
   totalCorrect: number;

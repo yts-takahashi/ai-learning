@@ -5,6 +5,7 @@ import { useProgress } from '@/hooks/useProgress';
 import ProgressBar from '@/components/ui/ProgressBar';
 import QuizStats from '@/components/features/QuizStats';
 import LearningTimeStats from '@/components/features/LearningTimeStats';
+import QuizHistoryDetail from '@/components/features/QuizHistoryDetail';
 import { CHAPTERS, TOTAL_LESSONS } from '@/lib/constants';
 
 interface ChapterProgressInfo {
@@ -135,6 +136,7 @@ export default function DashboardClient({ chapterProgressInfos, allSlugs, lesson
 
       <LearningTimeStats />
       <QuizStats />
+      <QuizHistoryDetail lessonTitleMap={lessonTitleMap} />
 
       {recentCompleted.length === 0 && totalCompleted === 0 && (
         <div className="bg-white rounded-xl border border-dashed border-gray-200 p-12 text-center">
