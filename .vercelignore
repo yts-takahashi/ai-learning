@@ -4,5 +4,4 @@ backend/target
 backend/backend.db
 .claude
 docs
-content
 .playwright-mcp
