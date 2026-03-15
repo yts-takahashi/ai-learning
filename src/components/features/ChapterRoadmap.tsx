@@ -1,3 +1,5 @@
+'use client';
+
 import dynamic from 'next/dynamic';
 
 const MermaidChart = dynamic(() => import('@/components/features/MermaidChart'), { ssr: false });

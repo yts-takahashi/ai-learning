@@ -51,7 +51,7 @@ export default function LessonKeyboardNav({ prevSlug, nextSlug, slug }: LessonKe
 
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [prevSlug, nextSlug, router]);
+  }, [prevSlug, nextSlug, router, slug, toggle]);
 
   if (!prevSlug && !nextSlug) return null;
 

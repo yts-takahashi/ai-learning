@@ -47,9 +47,11 @@ async fn main() -> anyhow::Result<()> {
         jwt_secret,
     };
 
+    let allowed_origin = std::env::var("ALLOWED_ORIGIN")
+        .unwrap_or_else(|_| "http://localhost:3000".to_string());
     let cors = CorsLayer::new()
         .allow_origin(AllowOrigin::exact(
-            "http://localhost:3000".parse().unwrap(),
+            allowed_origin.parse().expect("Invalid ALLOWED_ORIGIN"),
         ))
         .allow_methods([
             axum::http::Method::GET,

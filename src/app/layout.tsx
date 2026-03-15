@@ -52,7 +52,7 @@ export default function RootLayout({
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
             <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
               <p className="text-gray-500 text-sm">
-                © 2026 AI Learning. 生成AIを体系的に学ぶプラットフォーム
+                © 2026 YTS Inc.
               </p>
               <nav aria-label="フッターナビゲーション" className="flex items-center gap-6">
                 <Link href="/" className="text-sm text-gray-500 hover:text-blue-600 transition-colors">
