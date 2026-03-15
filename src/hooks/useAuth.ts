@@ -8,6 +8,7 @@ import type { AuthUser } from '@/lib/types';
 export function useAuth() {
   const [user, setUser] = useState<AuthUser | null>(null);
   const [token, setToken] = useState<string | null>(null);
+  const [isLoaded, setIsLoaded] = useState(false);
 
   useEffect(() => {
     const auth = getAuth();
@@ -15,6 +16,7 @@ export function useAuth() {
       setUser(auth.user);
       setToken(auth.token);
     }
+    setIsLoaded(true);
   }, []);
 
   const login = useCallback(async (email: string, password: string) => {
@@ -40,6 +42,7 @@ export function useAuth() {
   return {
     user,
     token,
+    isLoaded,
     isLoggedIn: user !== null,
     login,
     register,

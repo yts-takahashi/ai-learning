@@ -60,7 +60,9 @@ export default function DashboardClient({ chapterProgressInfos, allSlugs, lesson
       {/* All Lessons Completed Banner */}
       {totalCompleted >= allSlugs.length && allSlugs.length > 0 && (
         <div className="bg-gradient-to-br from-green-500 to-emerald-600 rounded-xl p-6 text-white text-center">
-          <p className="text-3xl mb-2">🎉</p>
+          <svg className="w-12 h-12 mx-auto mb-2 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z" />
+          </svg>
           <p className="text-xl font-bold mb-1">全レッスン完走おめでとうございます！</p>
           <p className="text-sm text-green-100">
             {TOTAL_LESSONS}本のレッスンをすべて修了しました。学んだことを実践で活かしていきましょう。
@@ -118,19 +120,39 @@ export default function DashboardClient({ chapterProgressInfos, allSlugs, lesson
             const chInfo = CHAPTERS.find((c) => c.number === ch.number);
             const chCompleted = ch.slugs.filter((s) => completedSlugs.has(s)).length;
             const chTotal = chInfo?.lessonCount ?? ch.slugs.length;
+            const firstIncomplete = ch.slugs.find((s) => !completedSlugs.has(s)) ?? null;
+            const allChapterDone = chCompleted >= chTotal && chTotal > 0;
 
             return (
               <div key={ch.number}>
                 <div className="flex items-center justify-between mb-2">
-                  <div className="flex items-center gap-2">
+                  <div className="flex items-center gap-2 min-w-0 flex-1">
                     <span className="w-6 h-6 bg-blue-600 text-white rounded text-xs flex items-center justify-center font-bold flex-shrink-0">
                       {ch.number}
                     </span>
-                    <span className="text-sm font-medium text-gray-700">{ch.title}</span>
+                    <span className="text-sm font-medium text-gray-700 truncate">{ch.title}</span>
                   </div>
-                  <span className="text-xs text-gray-400">
-                    {chCompleted}/{chTotal}
-                  </span>
+                  <div className="flex items-center gap-2 flex-shrink-0 ml-2">
+                    <span className="text-xs text-gray-400">
+                      {chCompleted}/{chTotal}
+                    </span>
+                    {!allChapterDone && firstIncomplete ? (
+                      <Link
+                        href={`/lessons/${firstIncomplete}`}
+                        className="text-xs text-blue-600 hover:text-blue-800 font-medium whitespace-nowrap transition-colors"
+                        title={`チャプター${ch.number}の続きから学ぶ`}
+                      >
+                        続きから
+                        <svg className="w-3 h-3 inline-block ml-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                        </svg>
+                      </Link>
+                    ) : allChapterDone ? (
+                      <svg className="w-4 h-4 text-green-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M5 13l4 4L19 7" />
+                      </svg>
+                    ) : null}
+                  </div>
                 </div>
                 <ProgressBar value={chCompleted} max={chTotal} size="sm" />
               </div>

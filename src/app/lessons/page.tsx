@@ -1,14 +1,12 @@
 import { Suspense } from 'react';
 import type { Metadata } from 'next';
 import { getChapters, getAllLessons } from '@/lib/lessons';
-import { CHAPTERS } from '@/lib/constants';
 import { educationalCourseSchema } from '@/lib/schema';
-import LessonCard from '@/components/features/LessonCard';
 import LessonsProgress from '@/components/features/LessonsProgress';
 import ChapterFilter from '@/components/features/ChapterFilter';
-import ChapterProgress from '@/components/features/ChapterProgress';
 import ChapterRoadmap from '@/components/features/ChapterRoadmap';
 import DifficultyFilter from '@/components/features/DifficultyFilter';
+import ChapterAccordion from '@/components/features/ChapterAccordion';
 
 export const metadata: Metadata = {
   title: 'レッスン一覧 — AI Learning',
@@ -81,47 +79,11 @@ export default async function LessonsPage({ searchParams }: LessonsPageProps) {
         </p>
       )}
 
-      <div className="space-y-10">
-        {filteredChapters.map((chapter) => {
-          const chapterInfo = CHAPTERS.find((c) => c.number === chapter.number);
-
-          return (
-            <section key={chapter.number}>
-              <div className="flex items-center gap-3 mb-4">
-                <div className="w-10 h-10 bg-blue-600 rounded-lg flex items-center justify-center flex-shrink-0">
-                  <span className="text-white font-bold text-sm">{chapter.number}</span>
-                </div>
-                <div className="flex-1 min-w-0">
-                  <div className="flex items-center gap-3 flex-wrap">
-                    <h2 className="font-bold text-xl text-gray-900">{chapter.title}</h2>
-                    <ChapterProgress lessons={chapter.lessons} />
-                  </div>
-                  {chapterInfo && (
-                    <p className="text-sm text-gray-500">{chapterInfo.description}</p>
-                  )}
-                  <p className="text-xs text-gray-400 mt-0.5">
-                    約{Math.round(chapter.lessons.reduce((sum, l) => sum + l.duration, 0) / 60 * 10) / 10}時間（{chapter.lessons.reduce((sum, l) => sum + l.duration, 0)}分）
-                  </p>
-                </div>
-              </div>
-
-              {chapter.lessons.length === 0 ? (
-                <div className="bg-white rounded-xl border border-dashed border-gray-200 p-8 text-center">
-                  <p className="text-gray-400 text-sm">
-                    このチャプターのレッスンはまだ公開されていません
-                  </p>
-                </div>
-              ) : (
-                <div className="space-y-2">
-                  {chapter.lessons.map((lesson) => (
-                    <LessonCard key={lesson.slug} lesson={lesson} allSlugsInOrder={allLessons.map((l) => l.slug)} />
-                  ))}
-                </div>
-              )}
-            </section>
-          );
-        })}
-      </div>
+      <ChapterAccordion
+        chapters={filteredChapters}
+        allSlugsInOrder={allLessons.map((l) => l.slug)}
+        defaultOpenAll
+      />
     </div>
   );
 }

@@ -6,12 +6,17 @@ import { useAuth } from '@/hooks/useAuth';
 
 export function HeaderAuth() {
   const router = useRouter();
-  const { user, isLoggedIn, logout } = useAuth();
+  const { user, isLoggedIn, isLoaded, logout } = useAuth();
 
   const handleLogout = () => {
     logout();
     router.push('/');
   };
+
+  // ハイドレーション完了前は何も表示しない（ちらつき防止）
+  if (!isLoaded) {
+    return <div className="w-16 h-5" aria-hidden="true" />;
+  }
 
   if (isLoggedIn && user) {
     return (

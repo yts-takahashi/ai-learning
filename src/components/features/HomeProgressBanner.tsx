@@ -25,7 +25,9 @@ export default function HomeProgressBanner() {
       <section className="bg-green-50 border-b border-green-200" aria-label="完走バナー">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
           <div className="flex items-center gap-3">
-            <span className="text-xl" aria-hidden="true">🎉</span>
+            <svg className="w-6 h-6 text-green-600 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
             <p className="text-sm font-semibold text-green-800 flex-1">
               全 {TOTAL_LESSONS} レッスン完走おめでとうございます！
             </p>
